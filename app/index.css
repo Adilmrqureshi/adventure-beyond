@@ -8,12 +8,6 @@
   padding: 0;
 }
 
-.font-main {
-  font-family: "Alegreya", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
-}
-
 .header {
   width: 100%;
   background-color: white;
@@ -31,9 +25,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Alegreya", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
 }
 
 .body {
@@ -43,4 +34,35 @@
 
 .inner-layout {
   padding: 2rem;
+}
+
+.content-card {
+  background-color: white;
+  width: 70%;
+  min-height: 1rem;
+  padding: 1rem;
+}
+
+.content-card > div {
+  width: 100%;
+}
+
+.sub-heading-card {
+  width: 70%;
+  background-color: white;
+  color: black;
+  padding: 1rem;
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
