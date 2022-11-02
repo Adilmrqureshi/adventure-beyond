@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -32,37 +36,9 @@
     sans-serif;
 }
 
-.sub-heading {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sub-heading-inner {
-  width: inherit;
-  background-color: white;
-  color: black;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .body {
   background-color: black;
   width: 100%;
-}
-
-.content {
-  background-color: white;
-  width: inherit;
-  min-height: 1rem;
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
 }
 
 .inner-layout {
