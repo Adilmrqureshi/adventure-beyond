@@ -1,15 +1,24 @@
 import React from "react";
 import { primary, primaryBold } from "../utils/fonts";
 
-function ButtonPrimary({ children }: { children: React.ReactNode }) {
+function ButtonPrimary({
+  children,
+  type = "primary",
+  ...props
+}: {
+  children: React.ReactNode;
+  type?: "primary" | "secondary";
+} & React.HTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className={`bg-black 
-        text-white 
-        w-full
+      {...props}
+      className={` 
         py-2
+        w-full
+        flex-1
         text-lg 
         rounded-md 
+        ${type}
         ${primaryBold.className}`}
     >
       {children}

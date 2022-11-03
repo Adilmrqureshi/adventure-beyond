@@ -30,9 +30,13 @@
 
 .content-card {
   background-color: white;
-  width: 70%;
+  width: 50%;
   min-height: 1rem;
-  padding: 1rem;
+  padding: 2rem;
+}
+
+.border {
+  border: 1.5px solid black;
 }
 
 .content-card > div {
