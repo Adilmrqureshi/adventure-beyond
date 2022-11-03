@@ -1,4 +1,4 @@
-import { secondary } from "../../utils/fonts";
+import { primaryBold, secondary } from "../../utils/fonts";
 import "../index.css";
 
 export default function MenuLayout({ children }: { children: any }) {
@@ -6,7 +6,7 @@ export default function MenuLayout({ children }: { children: any }) {
     <>
       <div className="sub-heading center w-full">
         <div
-          className={`sub-heading-card text-2xl center ${secondary.className}`}
+          className={`sub-heading-card text-2xl center ${primaryBold.className}`}
         >
           Characters
         </div>

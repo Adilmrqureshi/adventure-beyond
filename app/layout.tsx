@@ -1,3 +1,4 @@
+import { primaryExtraBold } from "../utils/fonts";
 import "./index.css";
 
 export default function RootLayout({ children }: { children: any }) {
@@ -6,7 +7,11 @@ export default function RootLayout({ children }: { children: any }) {
       <head></head>
       <body className="body">
         <header className="header">
-          <div className="title">Hello</div>
+          <div
+            className={`w-full h-full center text-3xl ${primaryExtraBold.className}`}
+          >
+            Adventure beyond
+          </div>
         </header>
         <div className="inner-layout">{children}</div>
       </body>
