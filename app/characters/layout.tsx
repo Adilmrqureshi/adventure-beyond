@@ -11,7 +11,7 @@ export default function MenuLayout({ children }: { children: any }) {
           Characters
         </div>
       </div>
-      <div className="content center w-full mt-4">
+      <div className="center w-full mt-4">
         <div className="content-card center">{children}</div>
       </div>
     </>

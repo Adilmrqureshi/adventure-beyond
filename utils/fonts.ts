@@ -1,4 +1,4 @@
-import { Alegreya, Ovo } from "@next/font/google";
+import { Alegreya, Caveat, Indie_Flower, Ovo } from "@next/font/google";
 
 export const primary = Alegreya({ subsets: ["latin"] });
 export const primaryExtraBold = Alegreya({ weight: "900", subsets: ["latin"] });
@@ -12,3 +12,5 @@ export const primaryExtraLight = Alegreya({
 });
 
 export const secondary = Ovo({ weight: "400" });
+
+export const formFont = Indie_Flower({ weight: "400", subsets: ["latin"] });
