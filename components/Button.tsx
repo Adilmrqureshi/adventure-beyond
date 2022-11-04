@@ -1,7 +1,7 @@
 import React from "react";
 import { primary, primaryBold } from "../utils/fonts";
 
-function ButtonPrimary({
+function Button({
   children,
   variant = "primary",
   ...props
@@ -26,4 +26,4 @@ function ButtonPrimary({
   );
 }
 
-export default ButtonPrimary;
+export default Button;

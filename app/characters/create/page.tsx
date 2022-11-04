@@ -4,7 +4,7 @@ import React from "react";
 import { TextInput } from "../../../components/TextInput";
 import { Formik, Form } from "formik";
 import { BulletedTextInput } from "../../../components/NumberedTextInput";
-import ButtonPrimary from "../../../components/Button";
+import Button from "../../../components/Button";
 import { Character } from "@prisma/client";
 
 const createCharacter = async (character: Omit<Character, "id">) => {
@@ -95,12 +95,12 @@ const CharacterCreate = () => {
             number={7}
           />
           <div className="w-full flex" style={{ marginTop: "2rem" }}>
-            <ButtonPrimary style={{ marginRight: "1rem" }} type="submit">
+            <Button style={{ marginRight: "1rem" }} type="submit">
               Save
-            </ButtonPrimary>
-            <ButtonPrimary variant="secondary" style={{ marginLeft: "1rem" }}>
+            </Button>
+            <Button variant="secondary" style={{ marginLeft: "1rem" }}>
               Cancel
-            </ButtonPrimary>
+            </Button>
           </div>
         </Form>
       </Formik>

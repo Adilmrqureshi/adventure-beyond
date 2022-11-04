@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
-import ButtonPrimary from "../../components/Button";
+import Button from "../../components/Button";
 
 const Characters = () => {
   const router = useRouter();
   return (
     <div>
-      <ButtonPrimary
+      <Button
         variant="primary"
         onClick={() => {
           router.push("/characters/create");
@@ -16,7 +16,7 @@ const Characters = () => {
         }}
       >
         New character
-      </ButtonPrimary>
+      </Button>
     </div>
   );
 };
