@@ -5,6 +5,28 @@ import { TextInput } from "../../../components/TextInput";
 import { Formik, Form } from "formik";
 import { BulletedTextInput } from "../../../components/NumberedTextInput";
 import ButtonPrimary from "../../../components/Button";
+interface Character {
+  name: string;
+  age: number | null;
+  height: string;
+  role: string;
+  appearance: string;
+  clothing: string;
+  gait: string;
+  location: string;
+  nation: string;
+  ideal: string;
+  flaw: string;
+  dream: string;
+}
+
+const createCharacter = async (character: Character) => {
+  const response = await fetch("/api/createCharacter/", {
+    method: "POST",
+    body: JSON.stringify({ ...character, role: "FIGHTER", age: 12 }),
+  });
+  return await response.json();
+};
 
 const CharacterCreate = () => {
   return (
@@ -12,26 +34,29 @@ const CharacterCreate = () => {
       <Formik
         initialValues={{
           name: "",
-          age: "",
+          age: null,
           height: "",
-          class: "",
+          role: "",
           appearance: "",
           clothing: "",
           gait: "",
-          home: "",
+          location: "",
           nation: "",
           ideal: "",
           flaw: "",
           dream: "",
         }}
-        onSubmit={() => console.log("Submitted")}
+        onSubmit={(values) => {
+          const character = createCharacter(values);
+          console.log("Submitted ", character);
+        }}
       >
         <Form>
           <TextInput name="name" label="My name is:" />
           <TextInput name="age" marginTop={4} label="My age is:" />
           <TextInput name="height" marginTop={4} label="My height is:" />
           <BulletedTextInput
-            name="class"
+            name="role"
             marginTop={4}
             label="I'm the party's:"
             number={1}
@@ -50,7 +75,7 @@ const CharacterCreate = () => {
           />
           <TextInput name="gait" marginTop={4} label="and I move with:" />
           <BulletedTextInput
-            name="home"
+            name="location"
             marginTop={4}
             label="I'm from:"
             number={4}
@@ -79,8 +104,10 @@ const CharacterCreate = () => {
             number={7}
           />
           <div className="w-full flex" style={{ marginTop: "2rem" }}>
-            <ButtonPrimary style={{ marginRight: "1rem" }}>Save</ButtonPrimary>
-            <ButtonPrimary type="secondary" style={{ marginLeft: "1rem" }}>
+            <ButtonPrimary style={{ marginRight: "1rem" }} type="submit">
+              Save
+            </ButtonPrimary>
+            <ButtonPrimary variant="secondary" style={{ marginLeft: "1rem" }}>
               Cancel
             </ButtonPrimary>
           </div>

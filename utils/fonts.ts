@@ -11,6 +11,6 @@ export const primaryExtraLight = Alegreya({
   subsets: ["latin"],
 });
 
-export const secondary = Ovo({ weight: "400" });
+export const secondary = Ovo({ weight: "400", subsets: ["latin"] });
 
 export const formFont = Indie_Flower({ weight: "400", subsets: ["latin"] });

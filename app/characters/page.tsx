@@ -9,6 +9,7 @@ const Characters = () => {
   return (
     <div>
       <ButtonPrimary
+        variant="primary"
         onClick={() => {
           router.push("/characters/create");
           console.log("push");
