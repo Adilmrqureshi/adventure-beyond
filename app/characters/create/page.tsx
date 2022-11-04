@@ -5,25 +5,12 @@ import { TextInput } from "../../../components/TextInput";
 import { Formik, Form } from "formik";
 import { BulletedTextInput } from "../../../components/NumberedTextInput";
 import ButtonPrimary from "../../../components/Button";
-interface Character {
-  name: string;
-  age: number | null;
-  height: string;
-  role: string;
-  appearance: string;
-  clothing: string;
-  gait: string;
-  location: string;
-  nation: string;
-  ideal: string;
-  flaw: string;
-  dream: string;
-}
+import { Character } from "@prisma/client";
 
-const createCharacter = async (character: Character) => {
+const createCharacter = async (character: Omit<Character, "id">) => {
   const response = await fetch("/api/createCharacter/", {
     method: "POST",
-    body: JSON.stringify({ ...character, role: "FIGHTER", age: 12 }),
+    body: JSON.stringify(character),
   });
   return await response.json();
 };
@@ -34,7 +21,7 @@ const CharacterCreate = () => {
       <Formik
         initialValues={{
           name: "",
-          age: null,
+          age: "",
           height: "",
           role: "",
           appearance: "",
@@ -47,7 +34,11 @@ const CharacterCreate = () => {
           dream: "",
         }}
         onSubmit={(values) => {
-          const character = createCharacter(values);
+          const character = createCharacter({
+            ...values,
+            role: "FIGHTER",
+            age: +values.age,
+          });
           console.log("Submitted ", character);
         }}
       >
