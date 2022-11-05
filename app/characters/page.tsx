@@ -1,21 +1,24 @@
-"use client";
-
 import { useRouter } from "next/navigation";
 import React from "react";
-import ButtonPrimary from "../../components/Button";
+import ButtonPrimary, { ButtonLink } from "../../components/Button";
+import { prisma } from "../../prisma/db";
+import CharacterCard from "./CharacterCard";
 
-const Characters = () => {
-  const router = useRouter();
+async function getData() {
+  const characters = await prisma.character.findMany();
+  return characters;
+}
+
+const Characters = async () => {
+  const characters = await getData();
   return (
     <div>
-      <ButtonPrimary
-        onClick={() => {
-          router.push("/characters/create");
-          console.log("push");
-        }}
-      >
+      <ButtonLink variant="primary" href="/characters/create">
         New character
-      </ButtonPrimary>
+      </ButtonLink>
+      {characters.map((character) => (
+        <CharacterCard key={character.id} character={character} />
+      ))}
     </div>
   );
 };

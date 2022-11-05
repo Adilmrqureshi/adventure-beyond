@@ -39,6 +39,10 @@
   border: 1.5px solid black;
 }
 
+.shadow {
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+}
+
 .content-card > div {
   width: 100%;
 }
