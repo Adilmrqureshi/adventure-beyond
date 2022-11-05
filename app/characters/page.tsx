@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import React from "react";
-import ButtonPrimary, { ButtonLink } from "../../components/Button";
+import { ButtonLink } from "../../components/Button";
 import { prisma } from "../../prisma/db";
 import CharacterCard from "./CharacterCard";
 

@@ -4,14 +4,14 @@ import { primary, primaryBold } from "../utils/fonts";
 import "../styles/form.css";
 import Link from "next/link";
 
-function ButtonPrimary({
+function Button({
   children,
   variant = "primary",
   ...props
 }: {
   children: React.ReactNode;
   variant?: "primary" | "secondary";
-} & React.HTMLAttributes<HTMLButtonElement>) {
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       {...props}
@@ -44,4 +44,4 @@ export function ButtonLink({
   );
 }
 
-export default ButtonPrimary;
+export default Button;

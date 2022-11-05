@@ -4,7 +4,16 @@ import React from "react";
 import { TextInput } from "../../../components/TextInput";
 import { Formik, Form } from "formik";
 import { BulletedTextInput } from "../../../components/NumberedTextInput";
-import ButtonPrimary from "../../../components/Button";
+import Button from "../../../components/Button";
+import { Character } from "@prisma/client";
+
+const createCharacter = async (character: Omit<Character, "id">) => {
+  const response = await fetch("/api/createCharacter/", {
+    method: "POST",
+    body: JSON.stringify(character),
+  });
+  return await response.json();
+};
 
 const CharacterCreate = () => {
   return (
@@ -14,24 +23,31 @@ const CharacterCreate = () => {
           name: "",
           age: "",
           height: "",
-          class: "",
+          role: "",
           appearance: "",
           clothing: "",
           gait: "",
-          home: "",
+          location: "",
           nation: "",
           ideal: "",
           flaw: "",
           dream: "",
         }}
-        onSubmit={() => console.log("Submitted")}
+        onSubmit={(values) => {
+          const character = createCharacter({
+            ...values,
+            role: "FIGHTER",
+            age: +values.age,
+          });
+          console.log("Submitted ", character);
+        }}
       >
         <Form>
           <TextInput name="name" label="My name is:" />
           <TextInput name="age" marginTop={4} label="My age is:" />
           <TextInput name="height" marginTop={4} label="My height is:" />
           <BulletedTextInput
-            name="class"
+            name="role"
             marginTop={4}
             label="I'm the party's:"
             number={1}
@@ -50,7 +66,7 @@ const CharacterCreate = () => {
           />
           <TextInput name="gait" marginTop={4} label="and I move with:" />
           <BulletedTextInput
-            name="home"
+            name="location"
             marginTop={4}
             label="I'm from:"
             number={4}
@@ -79,10 +95,12 @@ const CharacterCreate = () => {
             number={7}
           />
           <div className="w-full flex" style={{ marginTop: "2rem" }}>
-            <ButtonPrimary style={{ marginRight: "1rem" }}>Save</ButtonPrimary>
-            <ButtonPrimary type="secondary" style={{ marginLeft: "1rem" }}>
+            <Button style={{ marginRight: "1rem" }} type="submit">
+              Save
+            </Button>
+            <Button variant="secondary" style={{ marginLeft: "1rem" }}>
               Cancel
-            </ButtonPrimary>
+            </Button>
           </div>
         </Form>
       </Formik>
