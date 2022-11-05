@@ -2,9 +2,14 @@ import React from "react";
 import "../index.css";
 import { Character } from "@prisma/client";
 import { ButtonLink } from "../../components/Button";
+import { secondary } from "../../utils/fonts";
 
 const InfoBox = ({ children }: { children: React.ReactNode }) => {
-  return <div className="border w-full p-2 text-center">{children}</div>;
+  return (
+    <div className={`border w-full p-2 text-center ${secondary.className}`}>
+      {children}
+    </div>
+  );
 };
 
 const CharacterCard = ({ character }: { character: Character }) => {
@@ -14,7 +19,7 @@ const CharacterCard = ({ character }: { character: Character }) => {
       <InfoBox>{character.role}</InfoBox>
       <InfoBox>HP: {10}</InfoBox>
       <InfoBox>AP: {10}</InfoBox>
-      <ButtonLink href="/character/view/">View</ButtonLink>
+      <ButtonLink href={`/characters/view/${character.id}`}>View</ButtonLink>
     </div>
   );
 };

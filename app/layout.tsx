@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: any }) {
       <body className="body">
         <header className="header">
           <div
-            className={`w-full h-full center text-3xl ${primaryExtraBold.className}`}
+            className={`w-full h-full center text-4xl ${primaryExtraBold.className}`}
           >
             Adventure beyond
           </div>
