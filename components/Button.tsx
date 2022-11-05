@@ -1,14 +1,14 @@
 import React from "react";
 import { primary, primaryBold } from "../utils/fonts";
 
-function ButtonPrimary({
+function Button({
   children,
-  type = "primary",
+  variant = "primary",
   ...props
 }: {
   children: React.ReactNode;
-  type?: "primary" | "secondary";
-} & React.HTMLAttributes<HTMLButtonElement>) {
+  variant?: "primary" | "secondary";
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       {...props}
@@ -18,7 +18,7 @@ function ButtonPrimary({
         flex-1
         text-lg 
         rounded-md 
-        ${type}
+        ${variant}
         ${primaryBold.className}`}
     >
       {children}
@@ -26,4 +26,4 @@ function ButtonPrimary({
   );
 }
 
-export default ButtonPrimary;
+export default Button;
