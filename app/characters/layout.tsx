@@ -4,14 +4,14 @@ import "../index.css";
 export default function MenuLayout({ children }: { children: any }) {
   return (
     <>
-      <div className="sub-heading center w-full">
+      <div className="center w-full">
         <div
-          className={`sub-heading-card text-2xl center ${primaryBold.className}`}
+          className={`sub-heading-card text-3xl center ${primaryBold.className}`}
         >
           Characters
         </div>
       </div>
-      <div className="center w-full mt-4">
+      <div className="center w-full">
         <div className="content-card center">{children}</div>
       </div>
     </>

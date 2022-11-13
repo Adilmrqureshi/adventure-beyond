@@ -8,10 +8,13 @@ export default async function newCharacter(
   if (req.method == "POST") {
     const data = JSON.parse(req.body);
 
+    let age;
+    if (typeof data.age === "string") age = data.age.parseInt();
+
     const character = await prisma.character.create({ data });
     ({
       name: data.name,
-      age: +data.age,
+      age: age,
       height: data.height,
       role: data.role,
       appearance: data.appearance,

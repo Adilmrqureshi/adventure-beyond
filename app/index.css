@@ -13,9 +13,11 @@
   background-color: white;
   color: black;
   display: fixed;
+  position: sticky;
+  border-bottom: 2px solid black;
   top: 0;
   left: 0;
-  height: 5rem;
+  height: 6rem;
   text-align: center;
 }
 
@@ -30,7 +32,7 @@
 
 .content-card {
   background-color: white;
-  width: 50%;
+  width: 100%;
   min-height: 1rem;
   padding: 2rem;
 }
@@ -39,21 +41,27 @@
   border: 2px solid black;
 }
 
+.shadow {
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+}
+
 .content-card > div {
   width: 100%;
 }
 
 .sub-heading-card {
-  width: 50%;
+  height: 6rem;
+  width: 100%;
   background-color: white;
   color: black;
   padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card {
   border: 2px solid black;
   border-radius: 4px;
-  margin: 1rem;
+  margin: 2rem;
   padding: 1rem;
 }
 
