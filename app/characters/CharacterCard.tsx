@@ -19,7 +19,7 @@ const CharacterCard = ({ character }: { character: Character }) => {
       <InfoBox>{character.role}</InfoBox>
       <InfoBox>HP: {10}</InfoBox>
       <InfoBox>AP: {10}</InfoBox>
-      <ButtonLink href={`/characters/view/${character.id}`}>View</ButtonLink>
+      <ButtonLink href={`/characters/${character.id}/view/`}>View</ButtonLink>
     </div>
   );
 };

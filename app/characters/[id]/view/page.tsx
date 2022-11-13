@@ -1,14 +1,8 @@
 import React, { Suspense } from "react";
 import Button, { ButtonLink } from "../../../../components/Button";
 import NumberInput from "../../../../components/NumberInput";
+import { getCharacter } from "../../../../prisma/query/getCharacter";
 import { primaryBold, primaryMedium, secondary } from "../../../../utils/fonts";
-
-const getCharacter = async (id: number) =>
-  await prisma?.character.findUniqueOrThrow({
-    where: {
-      id: id,
-    },
-  });
 
 const View = async (props: any) => {
   const myCharacter = await getCharacter(+props.params.id);
@@ -24,21 +18,21 @@ const View = async (props: any) => {
       <ButtonLink
         style={{ marginTop: "2rem" }}
         variant="secondary"
-        href="/characters/inventory/"
+        href={`/characters/${props.params.id}/inventory/`}
       >
         Inventory
       </ButtonLink>
       <ButtonLink
         style={{ marginTop: "1rem" }}
         variant="secondary"
-        href="/characters/abilities/"
+        href={`/characters/${props.params.id}/abilities/`}
       >
         Abilities
       </ButtonLink>
       <ButtonLink
         style={{ marginTop: "1rem" }}
         variant="secondary"
-        href="/characters/sheet/"
+        href={`/characters/${props.params.id}/sheet/`}
       >
         Character sheet
       </ButtonLink>

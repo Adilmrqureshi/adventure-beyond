@@ -4,7 +4,7 @@ import { formFont, secondary } from "../utils/fonts";
 import "styles/form.css";
 
 interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   name: string;
   marginTop?: number | string;
   number: number;
