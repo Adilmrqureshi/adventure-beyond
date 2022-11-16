@@ -17,7 +17,19 @@ model User {
 }
 
 model Character {
-  id          Int     @id @default(autoincrement())
+  id     String    @id @default(uuid())  
+  bio    Bio?  
+  ap     Int    @default(10)
+  maxAp  Int    @default(10)
+  hp     Int    @default(10)
+  maxHp  Int    @default(10)
+  gold   Int    @default(1)
+  silver Int    @default(1000)
+}
+
+model Bio {
+  character   Character  @relation(fields: [characterId], references: [id])
+  characterId String     @id @unique // relation scalar field (used in the `@relation` attribute above)
   name        String
   age         Int
   height      String
@@ -30,6 +42,15 @@ model Character {
   ideal       String
   flaw        String
   dream       String
+}
+
+model Ability {
+  id          Int     @id @default(autoincrement())
+  name        String 
+  role        Role
+  order       Int 
+  apCost      Int
+  description String
 }
 
 enum Role {
