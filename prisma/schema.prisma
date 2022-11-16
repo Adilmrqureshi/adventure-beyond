@@ -25,6 +25,7 @@ model Character {
   maxHp  Int    @default(10)
   gold   Int    @default(1)
   silver Int    @default(1000)
+  inventory InventoryItem[]
 }
 
 model Bio {
@@ -42,6 +43,13 @@ model Bio {
   ideal       String
   flaw        String
   dream       String
+}
+
+model InventoryItem {
+  id          Int     @id @default(autoincrement())  
+  name        String
+  characterId String 
+  character   Character @relation(fields: [characterId], references: [id])
 }
 
 model Ability {

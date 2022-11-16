@@ -5,7 +5,16 @@ import { prisma } from "../../prisma/db";
 import CharacterCard from "./CharacterCard";
 
 async function getData() {
-  const characters = await prisma.character.findMany();
+  const characters = await prisma.character.findMany({
+    include: {
+      bio: {
+        select: {
+          name: true,
+          role: true,
+        },
+      },
+    },
+  });
   return characters;
 }
 
@@ -16,9 +25,12 @@ const Characters = async () => {
       <ButtonLink variant="primary" href="/characters/create">
         New character
       </ButtonLink>
-      {characters.map((character) => (
-        <CharacterCard key={character.id} character={character} />
-      ))}
+      {characters.map(
+        (character) =>
+          character?.bio && (
+            <CharacterCard key={character.id} character={character} />
+          )
+      )}
     </div>
   );
 };

@@ -5,13 +5,13 @@ import { getCharacter } from "../../../../prisma/query/getCharacter";
 import { primaryBold, primaryMedium, secondary } from "../../../../utils/fonts";
 
 const View = async (props: any) => {
-  const myCharacter = await getCharacter(+props.params.id);
+  const myCharacter = await getCharacter(props.params.id);
   return (
     <div className="text-center">
       <h3
         className={`underline underline-offset-2 text-xl mb-6 ${primaryMedium.className}`}
       >
-        {myCharacter?.name}
+        {myCharacter?.bio?.name}
       </h3>
       <NumberInput>HP</NumberInput>
       <NumberInput>AP</NumberInput>
