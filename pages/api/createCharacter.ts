@@ -18,7 +18,7 @@ export default async function newCharacter(
 
     const body = {
       name: bio.name,
-      age: bio.age,
+      age: +bio.age,
       height: bio.height,
       appearance: bio.appearance,
       clothing: bio.clothing,

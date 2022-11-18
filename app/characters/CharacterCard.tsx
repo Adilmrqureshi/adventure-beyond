@@ -1,6 +1,6 @@
 import React from "react";
 import "../index.css";
-import { Character, Role } from "@prisma/client";
+import { Character, Class, Role } from "@prisma/client";
 import { ButtonLink } from "../../components/Button";
 import { secondary } from "../../utils/fonts";
 
@@ -15,12 +15,12 @@ const InfoBox = ({ children }: { children: React.ReactNode }) => {
 const CharacterCard = ({
   character,
 }: {
-  character: { bio: { name: string; role: Role } | null } & Character;
+  character: { bio: { name: string } | null; class: Class } & Character;
 }) => {
   return (
     <div className="w-full drop-shadow-2xl flex flex-col gap-y-4 p-4 my-4 shadow">
       <InfoBox>{character?.bio?.name}</InfoBox>
-      <InfoBox>{character?.bio?.role}</InfoBox>
+      <InfoBox>{character?.class?.id}</InfoBox>
       <InfoBox>HP: {10}</InfoBox>
       <InfoBox>AP: {10}</InfoBox>
       <ButtonLink href={`/characters/${character.id}/view/`}>View</ButtonLink>
