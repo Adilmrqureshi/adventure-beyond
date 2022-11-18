@@ -17,28 +17,36 @@ model User {
 }
 
 model Character {
-  id     String    @id @default(uuid())  
-  bio    Bio?  
-  ap     Int    @default(10)
-  maxAp  Int    @default(10)
-  hp     Int    @default(10)
-  maxHp  Int    @default(10)
-  gold   Int    @default(1)
-  silver Int    @default(1000)
+  id        String          @id @default(uuid())
+  bio       Bio?
+  ap        Int             @default(10)
+  maxAp     Int             @default(10)
+  hp        Int             @default(10)
+  maxHp     Int             @default(10)
+  gold      Int             @default(1)
+  silver    Int             @default(1000)
   inventory InventoryItem[]
+  role      Role
+  class     Class           @relation(fields: [role], references: [id])
+  abilities Ability[]
+}
+
+model Class {
+  id         Role        @id
+  bios       Character[]
+  categories Category[]
 }
 
 model Bio {
-  character   Character  @relation(fields: [characterId], references: [id])
-  characterId String     @id @unique // relation scalar field (used in the `@relation` attribute above)
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId String    @id @unique // relation scalar field (used in the `@relation` attribute above)
   name        String
   age         Int
   height      String
-  role        Role
   appearance  String
   clothing    String
   gait        String
-  location    String 
+  location    String
   nation      String
   ideal       String
   flaw        String
@@ -46,24 +54,34 @@ model Bio {
 }
 
 model InventoryItem {
-  id          Int     @id @default(autoincrement())  
+  id          Int       @id @default(autoincrement())
   name        String
-  characterId String 
+  characterId String
   character   Character @relation(fields: [characterId], references: [id])
 }
 
 model Ability {
-  id          Int     @id @default(autoincrement())
-  name        String 
-  role        Role
-  order       Int 
+  id          Int         @id @default(autoincrement())
+  name        String
+  order       Int
   apCost      Int
   description String
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  characters  Character[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  abilities Ability[]
+  name      String
+  class     Class     @relation(fields: [role], references: [id])
+  role      Role
 }
 
 enum Role {
   FIGHTER
-  INVOKER 
+  INVOKER
   RANGER
   NATURALIST
   DOCTOR

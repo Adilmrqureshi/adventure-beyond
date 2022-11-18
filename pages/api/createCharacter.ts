@@ -1,30 +1,46 @@
+import { Bio, Role } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../prisma/db";
+
+type CreateCharacterInput = {
+  bio: Bio;
+  role: Role;
+};
 
 export default async function newCharacter(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method == "POST") {
-    const data = JSON.parse(req.body);
+    const data: CreateCharacterInput = JSON.parse(req.body);
+    const bio = data?.bio;
+    const role = data?.role;
 
     const body = {
-      name: data.name,
-      age: data.age,
-      height: data.height,
-      role: data.role,
-      appearance: data.appearance,
-      clothing: data.clothing,
-      gait: data.gait,
-      nation: data.nation,
-      flaw: data.flaw,
-      ideal: data.ideal,
-      location: data.location,
-      dream: data.dream,
+      name: bio.name,
+      age: bio.age,
+      height: bio.height,
+      appearance: bio.appearance,
+      clothing: bio.clothing,
+      gait: bio.gait,
+      nation: bio.nation,
+      flaw: bio.flaw,
+      ideal: bio.ideal,
+      location: bio.location,
+      dream: bio.dream,
     };
 
+    if (role in Role === false) {
+      res.json({ error: `Invalid role` });
+    }
+
     const character = await prisma.character.create({
-      data: { bio: { create: body } },
+      data: {
+        bio: { create: body },
+        class: {
+          connectOrCreate: { where: { id: role }, create: { id: role } },
+        },
+      },
     });
 
     res.json({ message: `Character create [id: ${character.id}]`, character });

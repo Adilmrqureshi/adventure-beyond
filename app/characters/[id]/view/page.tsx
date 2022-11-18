@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
+import * as React from "react";
 import Button, { ButtonLink } from "../../../../components/Button";
 import NumberInput from "../../../../components/NumberInput";
 import { getCharacter } from "../../../../prisma/query/getCharacter";
-import { primaryBold, primaryMedium, secondary } from "../../../../utils/fonts";
+import { primaryMedium } from "../../../../utils/fonts";
 
 const View = async (props: any) => {
   const myCharacter = await getCharacter(props.params.id);
@@ -17,26 +17,30 @@ const View = async (props: any) => {
       <NumberInput>AP</NumberInput>
       <ButtonLink
         style={{ marginTop: "2rem" }}
-        variant="secondary"
         href={`/characters/${props.params.id}/inventory/`}
       >
         Inventory
       </ButtonLink>
       <ButtonLink
         style={{ marginTop: "1rem" }}
-        variant="secondary"
         href={`/characters/${props.params.id}/abilities/`}
       >
         Abilities
       </ButtonLink>
       <ButtonLink
         style={{ marginTop: "1rem" }}
-        variant="secondary"
         href={`/characters/${props.params.id}/sheet/`}
       >
         Character sheet
       </ButtonLink>
       <Button style={{ marginTop: "1rem" }}>Delete</Button>
+      <ButtonLink
+        href={`/characters/`}
+        style={{ marginTop: "1rem" }}
+        variant="secondary"
+      >
+        Back
+      </ButtonLink>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { Form, Formik } from "formik";
 import { BulletedTextInput } from "../../../../components/BulletedTextInput";
 import Button from "../../../../components/Button";
 import { InventoryItem } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 const getInventoryItems = async (characterId: string) => {
   const response = await fetch("/api/inventory/all/", {
@@ -30,6 +31,8 @@ const Inventory = (props: any) => {
 };
 
 const InventoryForm = (props: any) => {
+  const router = useRouter();
+
   const initialValues = {
     one: props?.inventory[0]?.name,
     two: props?.inventory[1]?.name,
@@ -65,19 +68,32 @@ const InventoryForm = (props: any) => {
         }}
         initialValues={initialValues}
       >
-        <Form>
-          {Object.keys(initialValues).map((name, index) => (
-            <BulletedTextInput
-              marginTop={1.5}
-              key={name}
-              name={name}
-              number={index + 1}
-            />
-          ))}
-          <Button type="submit" style={{ marginTop: "2rem" }}>
-            Save
-          </Button>
-        </Form>
+        {(formik) => (
+          <Form>
+            {Object.keys(initialValues).map((name, index) => (
+              <BulletedTextInput
+                marginTop={1.5}
+                key={name}
+                name={name}
+                number={index + 1}
+              />
+            ))}
+            <Button type="submit" style={{ marginTop: "2rem" }}>
+              Save
+            </Button>
+            <Button
+              type="button"
+              style={{ marginTop: "1rem" }}
+              variant="secondary"
+              onClick={() => {
+                formik.resetForm();
+                router.back();
+              }}
+            >
+              Back
+            </Button>
+          </Form>
+        )}
       </Formik>
     </div>
   );

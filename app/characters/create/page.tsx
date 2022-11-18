@@ -9,10 +9,13 @@ import { Bio, Role } from "@prisma/client";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
 
-const createCharacter = async (bio: Omit<Omit<Bio, "characterId">, "id">) => {
+const createCharacter = async (
+  bio: Omit<Omit<Bio, "characterId">, "id">,
+  role: Role
+) => {
   return await fetch("/api/createCharacter/", {
     method: "POST",
-    body: JSON.stringify(bio),
+    body: JSON.stringify({ bio, role }),
   });
 };
 
@@ -54,11 +57,13 @@ const CharacterCreate = () => {
         }}
         validationSchema={schema}
         onSubmit={async (values) => {
-          const response = await createCharacter({
-            ...values,
-            role: values.role as Role,
-            age: values.age,
-          });
+          const response = await createCharacter(
+            {
+              ...values,
+              age: values.age,
+            },
+            values.role as Role
+          );
           if (response.ok) router.push("/characters");
         }}
       >
@@ -126,8 +131,8 @@ const CharacterCreate = () => {
               <Button
                 variant="secondary"
                 onClick={() => {
-                  router.back();
                   formik.resetForm();
+                  router.back();
                 }}
                 style={{ marginLeft: "1rem" }}
                 type="button"
