@@ -62,19 +62,20 @@ model InventoryItem {
 
 model Ability {
   id          Int         @id @default(autoincrement())
-  name        String
+  name        String      @unique
   order       Int
   apCost      Int
   description String
   category    Category    @relation(fields: [categoryId], references: [id])
   categoryId  Int
   characters  Character[]
+  extra       String? 
 }
 
 model Category {
   id        Int       @id @default(autoincrement())
   abilities Ability[]
-  name      String
+  name      String    
   class     Class     @relation(fields: [role], references: [id])
   role      Role
 }
