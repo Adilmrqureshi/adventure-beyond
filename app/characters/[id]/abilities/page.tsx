@@ -12,7 +12,6 @@ type AbilityCardProps = {
 
 const AbilityCard = ({ ability }: AbilityCardProps) => {
   const [open, setOpen] = useState(false);
-  console.log(alternateMedium.style.fontFamily);
 
   return (
     <div
@@ -57,8 +56,6 @@ const Abilities = (props: any) => {
         .then((response) => response.json())
         .then((data) => setAbilities(data.data));
   }, [abilities]);
-
-  console.log("hello");
 
   return (
     <div className="center flex-col gap-6">

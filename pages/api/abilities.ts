@@ -11,7 +11,6 @@ export default async function inventory(
 ) {
   try {
     const id = JSON.parse(req.body).id;
-    console.log(id, "ID");
 
     const character = await prisma?.character?.findUniqueOrThrow({
       where: { id: id },
