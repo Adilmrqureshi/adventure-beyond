@@ -7,10 +7,10 @@ import CharacterCard from "./CharacterCard";
 async function getData() {
   const characters = await prisma.character.findMany({
     include: {
+      class: true,
       bio: {
         select: {
           name: true,
-          role: true,
         },
       },
     },

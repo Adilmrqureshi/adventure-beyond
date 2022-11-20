@@ -8,6 +8,18 @@
   padding: 0;
 }
 
+.ap {
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-family: __Alegreya_Sans_SC_9e2ab2;
+}
+
 .header {
   width: 100%;
   background-color: white;

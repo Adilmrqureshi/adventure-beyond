@@ -19,7 +19,6 @@ export default async function inventory(
         .filter((item) => !!item)
         .map((item) => ({
           name: item,
-          characterId,
         }));
 
       await prisma.$transaction([

@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.4.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@next/font": "^13.0.1",
     "@prisma/client": "^4.5.0",
+    "csv": "^6.2.2",
     "formik": "^2.2.9",
+    "framer-motion": "^7.6.7",
+    "lodash": "^4.17.21",
     "next": "13.0.0",
     "prisma": "^4.6.1",
     "react": "18.2.0",

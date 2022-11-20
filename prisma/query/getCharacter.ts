@@ -4,6 +4,7 @@ export const getCharacter = async (id: string) =>
       id: id,
     },
     include: {
+      class: true,
       bio: true,
     },
   });
