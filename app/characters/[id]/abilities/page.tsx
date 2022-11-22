@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { alternateMedium, primaryBold } from "../../../../utils/fonts";
 import "../../../index.css";
-import { divide, startCase } from "lodash";
+import { startCase } from "lodash";
 import { Ability } from "@prisma/client";
+import Button, { ButtonLink } from "../../../../components/Button";
+import { useRouter } from "next/navigation";
 
 type AbilityCardProps = {
   ability: Ability;
@@ -15,7 +17,7 @@ const AbilityCard = ({ ability }: AbilityCardProps) => {
 
   return (
     <div
-      className="rounded-xl w-full border min-h-[1rem]  py-4 px-6"
+      className="rounded-xl w-full border min-h-[1rem] py-4 px-6"
       onClick={() => setOpen((value) => !value)}
     >
       <div className="w-full flex flex-row justify-between">
@@ -47,6 +49,7 @@ const AbilityCard = ({ ability }: AbilityCardProps) => {
 
 const Abilities = (props: any) => {
   const [abilities, setAbilities] = useState<Ability[] | null>(null);
+  const router = useRouter();
   useEffect(() => {
     if (!abilities)
       fetch("/api/abilities/", {
@@ -62,6 +65,15 @@ const Abilities = (props: any) => {
       {abilities?.map((ability) => (
         <AbilityCard key={ability.id} ability={ability} />
       ))}
+      <ButtonLink
+        className="w-full"
+        href={`/characters/${props.params.id}/abilities/add`}
+      >
+        Add ability
+      </ButtonLink>
+      <Button variant="secondary" onClick={() => router.back()}>
+        Back
+      </Button>
     </div>
   );
 };

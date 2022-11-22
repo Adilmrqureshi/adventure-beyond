@@ -1,10 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../prisma/db";
 
-interface GetInventoryRequest {
-  characterId: string;
-}
-
 export default async function inventory(
   req: NextApiRequest,
   res: NextApiResponse
