@@ -7,6 +7,7 @@ import { startCase } from "lodash";
 import { Ability } from "@prisma/client";
 import Button, { ButtonLink } from "../../../../components/Button";
 import { useRouter } from "next/navigation";
+import NumberInput from "../../../../components/NumberInput";
 
 type AbilityCardProps = {
   ability: Ability;
@@ -52,7 +53,7 @@ const Abilities = (props: any) => {
   const router = useRouter();
   useEffect(() => {
     if (!abilities)
-      fetch("/api/abilities/", {
+      fetch("/api/abilities/all", {
         method: "POST",
         body: JSON.stringify({ id: props.params.id }),
       })
@@ -62,11 +63,17 @@ const Abilities = (props: any) => {
 
   return (
     <div className="center flex-col gap-6">
+      <div className="w-full">
+        <NumberInput>HP</NumberInput>
+        <NumberInput>AP</NumberInput>
+      </div>
+
       {abilities?.map((ability) => (
         <AbilityCard key={ability.id} ability={ability} />
       ))}
       <ButtonLink
         className="w-full"
+        style={{ marginTop: "1rem" }}
         href={`/characters/${props.params.id}/abilities/add`}
       >
         Add ability

@@ -1,15 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../prisma/db";
-import { addLearned } from "../../utils/addLearned";
+import { prisma } from "../../../prisma/db";
+import { addLearned } from "../../../utils/addLearned";
 
 export default async function inventory(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const characterId = JSON.parse(req.body).id;
   try {
-    const character = await prisma.character.findUniqueOrThrow({
+    const characterId = JSON.parse(req.body).characterId;
+    const abilityId = JSON.parse(req.body).abilityId;
+
+    const character = await prisma?.character?.update({
       where: { id: characterId },
+      data: { abilities: { connect: { id: abilityId } } },
       include: {
         class: {
           include: {
@@ -30,13 +33,11 @@ export default async function inventory(
     const response = addLearned(character, characterId);
 
     res.json({
-      message: `Successfully retrieved categories for character ${character.id}`,
+      message: "Successfully retrieved inventory",
       data: response,
     });
   } catch (e) {
     console.log(`Error: ${e}, of type ${typeof e}`);
-    res.json({
-      error: `There was an error while fetching categories for ${characterId}`,
-    });
+    res.json({ error: "There was an error retrieving you abilities" });
   }
 }

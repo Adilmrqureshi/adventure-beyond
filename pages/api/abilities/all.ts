@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../prisma/db";
+import { prisma } from "../../../prisma/db";
 
 export default async function inventory(
   req: NextApiRequest,
