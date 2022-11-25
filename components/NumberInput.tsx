@@ -6,9 +6,10 @@ import { primaryBold, primaryRegular, secondary } from "../utils/fonts";
 const NumberInput = ({ children }: { children: React.ReactNode }) => {
   const [value, setValue] = React.useState(10);
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row items-center w-full">
       <div
-        className={`font-black text-lg w-[48px] text-left ${primaryBold.className}`}
+        style={{ height: "100%" }}
+        className={`font-black h-full justify-center text-lg w-[48px] text-left ${primaryBold.className}`}
       >
         {children}:
       </div>
@@ -27,7 +28,7 @@ const NumberInput = ({ children }: { children: React.ReactNode }) => {
           </div>
         </button>
         <div
-          className={`border text font-semibold w-full p-3 text-lg ${primaryRegular.className}`}
+          className={`border center text font-semibold w-full p-3 text-lg ${primaryRegular.className}`}
         >
           {value}
         </div>

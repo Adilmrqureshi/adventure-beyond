@@ -33,7 +33,7 @@ export function ButtonLink({
   href: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <Link href={href}>
+    <Link href={href} style={{ width: "100%" }}>
       <button
         {...props}
         className={`py-2 w-full flex-1 text-lg rounded-md ${variant} ${primaryBold.className}`}
