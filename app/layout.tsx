@@ -1,10 +1,10 @@
 import { primaryExtraBold } from "../utils/fonts";
 import "./index.css";
 
-export default function RootLayout({ children }: { children: any }) {
+export default async function RootLayout({ children }: { children: any }) {
   return (
     <html>
-      <head></head>
+      <head>Adventure beyond</head>
       <body className="body">
         <header className="header">
           <div
