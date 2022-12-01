@@ -1,10 +1,14 @@
+"use client";
+
+import { SessionProvider, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { primaryExtraBold } from "../utils/fonts";
 import "./index.css";
 
 export default function RootLayout({ children }: { children: any }) {
   return (
     <html>
-      <head></head>
+      <head>Adventure beyond</head>
       <body className="body">
         <header className="header">
           <div
@@ -13,8 +17,28 @@ export default function RootLayout({ children }: { children: any }) {
             Adventure beyond
           </div>
         </header>
-        <div className="inner-layout">{children}</div>
+        <SessionProvider>
+          <Auth>
+            <div className="inner-layout">{children}</div>
+          </Auth>
+        </SessionProvider>
       </body>
     </html>
   );
 }
+
+const Auth = (props: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/api/auth/signin/");
+    },
+  });
+
+  if (status === "loading") {
+    return <div>Loading or not authenticated...</div>;
+  }
+
+  return <div>{props.children}</div>;
+};
