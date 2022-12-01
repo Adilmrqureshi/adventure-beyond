@@ -1,9 +1,6 @@
 {
   "name": "adventure-beyond",
   "version": "0.1.0",
-  "engines":{
-    "node": "18.9.1"
-  }
   "private": true,
   "scripts": {
     "dev": "next dev",
