@@ -21,7 +21,9 @@ export const TextInput = ({ label, name, marginTop, ...props }: FieldProps) => {
           {label}
         </label>
         <input
-          className={`text-input max-w-md border px-2 text-lg flex-1 p-1 ${formFont.className}`}
+          className={`text-input max-w-md border px-2 text-lg flex-1 p-1 ${
+            formFont.className
+          } ${props.disabled ? "disabled" : ""}`}
           {...field}
           {...props}
         />

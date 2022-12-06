@@ -1,10 +1,12 @@
 import { Bio, Role } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../prisma/db";
+import { User } from "next-auth";
+import { prisma } from "../../../prisma/db";
 
 type CreateCharacterInput = {
   bio: Bio;
   role: Role;
+  user: Omit<User, "id">;
 };
 
 export default async function newCharacter(
@@ -13,8 +15,7 @@ export default async function newCharacter(
 ) {
   if (req.method == "POST") {
     const data: CreateCharacterInput = JSON.parse(req.body);
-    const bio = data?.bio;
-    const role = data?.role;
+    const { bio, role, user } = data;
 
     const body = {
       name: bio.name,
@@ -32,10 +33,17 @@ export default async function newCharacter(
 
     if (role in Role === false) {
       res.json({ error: `Invalid role` });
+      return;
+    }
+
+    if (!user?.email) {
+      res.json({ error: "No email provided" });
+      return;
     }
 
     const character = await prisma.character.create({
       data: {
+        user: { connect: { email: user.email } },
         bio: { create: body },
         class: {
           connectOrCreate: { where: { id: role }, create: { id: role } },

@@ -85,9 +85,9 @@
 
 @media only screen and (min-width: 600px) {
   .content-card {
-    width: 60%;
+    width: 50%;
   }
   .sub-heading-card {
-    width: 60%;
+    width: 50%;
   }
 }

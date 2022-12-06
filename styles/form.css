@@ -11,6 +11,18 @@
   margin-right: 1rem;
 }
 
+.button-disabled {
+  opacity: 50%;
+}
+
+.disabled {
+  background-color: rgba(206, 206, 206, 0.812);
+}
+
+.error {
+  color: red;
+}
+
 .primary {
   background-color: black;
   color: white;

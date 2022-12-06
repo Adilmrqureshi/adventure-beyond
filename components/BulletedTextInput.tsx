@@ -31,7 +31,9 @@ const BulletTextInputNoLabel = ({
       <div className="flex mb-3 items-center flex-row">
         <div className="bullet">{number}</div>
         <input
-          className={`w-full text-input border p-1 px-3 text-lg ${formFont.className}`}
+          className={`w-full text-input border p-1 px-3 text-lg ${
+            formFont.className
+          } ${props.disabled ? "disabled" : ""}`}
           {...field}
           {...props}
         />
@@ -65,7 +67,9 @@ const BulletTextInputWithLabel = ({
         </label>
       </div>
       <input
-        className={`w-full text-input border p-1 px-3 text-lg ${formFont.className}`}
+        className={`w-full text-input border p-1 px-3 text-lg ${
+          formFont.className
+        }  ${props.disabled ? "disabled" : ""}`}
         {...field}
         {...props}
       />

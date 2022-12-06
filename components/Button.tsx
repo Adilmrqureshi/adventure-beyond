@@ -15,7 +15,9 @@ function Button({
   return (
     <button
       {...props}
-      className={`py-2 w-full flex-1 text-lg rounded-md ${variant} ${primaryBold.className}`}
+      className={`py-2 w-full flex-1 text-lg rounded-md ${variant} ${
+        primaryBold.className
+      } ${props.disabled ? "button-disabled" : ""}`}
     >
       {children}
     </button>
