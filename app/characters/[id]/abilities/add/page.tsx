@@ -138,6 +138,7 @@ const AddAbility = (props: any) => {
   return (
     <div>
       <Legend />
+
       <br />
       {categories !== null ? (
         <div className="center flex-col gap-6">
