@@ -33,7 +33,12 @@ const View = async (props: any) => {
       >
         Character sheet
       </ButtonLink>
-      <Button style={{ marginTop: "1rem" }}>Delete</Button>
+      <ButtonLink
+        href={`/characters/${props.params.id}/delete/`}
+        style={{ marginTop: "1rem" }}
+      >
+        Delete
+      </ButtonLink>
       <ButtonLink
         href={`/characters/`}
         style={{ marginTop: "1rem" }}

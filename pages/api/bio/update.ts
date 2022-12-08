@@ -53,7 +53,7 @@ export default async function inventory(
   } catch (e) {
     console.log(`Error: ${e}, of type ${typeof e}`);
     res.json({
-      error: ``,
+      error: `Error: ${e}, of type ${typeof e}`,
     });
   }
 }

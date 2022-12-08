@@ -1,13 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { alternateMedium, primaryBold } from "../../../../utils/fonts";
+import {
+  alternateMedium,
+  primaryBold,
+  primaryMedium,
+} from "../../../../utils/fonts";
 import "../../../index.css";
 import { startCase } from "lodash";
 import { Ability } from "@prisma/client";
 import Button, { ButtonLink } from "../../../../components/Button";
 import { useRouter } from "next/navigation";
 import NumberInput from "../../../../components/NumberInput";
+import { Legend } from "./Legend";
 
 type AbilityCardProps = {
   ability: Ability;
@@ -63,17 +68,28 @@ const Abilities = (props: any) => {
 
   return (
     <div className="center flex-col gap-6">
-      <div className="w-full">
+      <h1
+        className={`underline underline-offset-2 text-2xl ${primaryMedium.className}`}
+      >
+        Ability overview
+      </h1>
+      <div className="w-full mb-2 ">
         <NumberInput>HP</NumberInput>
         <NumberInput>AP</NumberInput>
       </div>
-
+      <Legend />
+      {/* <h2
+        className={`mt-2 text-xl w-full text-center ${alternateMedium.className}`}
+      >
+        Abilities
+      </h2> */}
+      <hr className="h-1 w-full" />
       {abilities?.map((ability) => (
         <AbilityCard key={ability.id} ability={ability} />
       ))}
+      <hr className="h-1 w-full" />
       <ButtonLink
-        className="w-full"
-        style={{ marginTop: "1rem" }}
+        className="w-full mt-6"
         href={`/characters/${props.params.id}/abilities/add`}
       >
         Add ability

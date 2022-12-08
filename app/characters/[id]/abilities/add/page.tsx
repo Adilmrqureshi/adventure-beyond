@@ -4,8 +4,13 @@ import { startCase } from "lodash";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import Button from "../../../../../components/Button";
-import { alternateMedium, primaryBold } from "../../../../../utils/fonts";
+import {
+  alternateMedium,
+  primaryBold,
+  primaryMedium,
+} from "../../../../../utils/fonts";
 import "../../../../index.css";
+import { Legend } from "../Legend";
 
 type CategoryProps = Category & {
   abilities: (Ability & { learned: boolean })[];
@@ -29,6 +34,8 @@ const AddAbilityCard = (props: {
       props.setCategories(data.data);
     }
   };
+
+  const unlearnAbility = async (id: number) => {};
 
   return (
     <div
@@ -62,13 +69,22 @@ const AddAbilityCard = (props: {
           <div
             dangerouslySetInnerHTML={{ __html: props.ability.description }}
           />
-          <Button
-            style={{ marginTop: "1rem" }}
-            disabled={props.ability.learned}
-            onClick={() => learnAbility(props.ability.id)}
-          >
-            Add
-          </Button>
+          {props.ability.learned ? (
+            <Button
+              style={{ marginTop: "1rem" }}
+              variant="secondary"
+              onClick={() => unlearnAbility(props.ability.id)}
+            >
+              Remove
+            </Button>
+          ) : (
+            <Button
+              style={{ marginTop: "1rem" }}
+              onClick={() => learnAbility(props.ability.id)}
+            >
+              Add
+            </Button>
+          )}
         </div>
       )}
     </div>
@@ -120,7 +136,9 @@ const AddAbility = (props: any) => {
   }, [categories]);
 
   return (
-    <>
+    <div>
+      <Legend />
+      <br />
       {categories !== null ? (
         <div className="center flex-col gap-6">
           {categories?.map((cat) => (
@@ -144,7 +162,7 @@ const AddAbility = (props: any) => {
       >
         Back
       </Button>
-    </>
+    </div>
   );
 };
 

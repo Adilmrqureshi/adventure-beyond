@@ -78,20 +78,26 @@ const InventoryForm = (props: any) => {
                 number={index + 1}
               />
             ))}
-            <Button type="submit" style={{ marginTop: "2rem" }}>
-              Save
-            </Button>
-            <Button
-              type="button"
-              style={{ marginTop: "1rem" }}
-              variant="secondary"
-              onClick={() => {
-                formik.resetForm();
-                router.back();
-              }}
-            >
-              Back
-            </Button>
+            <div className="w-full flex gap-4" style={{ marginTop: "2rem" }}>
+              <Button
+                type="submit"
+                style={{
+                  backgroundColor: "black",
+                }}
+              >
+                Save
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  formik.resetForm();
+                  router.back();
+                }}
+              >
+                Back
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>
