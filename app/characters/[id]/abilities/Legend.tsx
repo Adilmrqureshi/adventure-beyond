@@ -2,12 +2,7 @@ import { alternateMedium } from "../../../../utils/fonts";
 
 export const Legend = () => {
   return (
-    <div className="p-0 p-3">
-      <h2
-        className={`mb-2 text-xl w-full text-center ${alternateMedium.className}`}
-      >
-        Legend
-      </h2>
+    <div className="pt-0 p-3">
       <div className="mb-1">
         <span
           className={`py-1 px-2 w-[40px] h-[25px] bg-black text-white font-bold text-sm ${alternateMedium.className}`}

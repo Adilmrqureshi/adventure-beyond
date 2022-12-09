@@ -69,7 +69,7 @@ const Abilities = (props: any) => {
   return (
     <div className="center flex-col gap-6">
       <h1
-        className={`underline underline-offset-2 text-2xl ${primaryMedium.className}`}
+        className={`underline underline-offset-2 text-xl ${primaryMedium.className}`}
       >
         Ability overview
       </h1>
@@ -77,13 +77,9 @@ const Abilities = (props: any) => {
         <NumberInput>HP</NumberInput>
         <NumberInput>AP</NumberInput>
       </div>
-      <Legend />
-      {/* <h2
-        className={`mt-2 text-xl w-full text-center ${alternateMedium.className}`}
-      >
-        Abilities
-      </h2> */}
+
       <hr className="h-1 w-full" />
+      <Legend />
       {abilities?.map((ability) => (
         <AbilityCard key={ability.id} ability={ability} />
       ))}

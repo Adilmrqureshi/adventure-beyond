@@ -35,7 +35,16 @@ const AddAbilityCard = (props: {
     }
   };
 
-  const unlearnAbility = async (id: number) => {};
+  const unlearnAbility = async (abilityId: number) => {
+    const response = await fetch("/api/abilities/remove/", {
+      method: "POST",
+      body: JSON.stringify({ characterId: props.characterId, abilityId }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      props.setCategories(data.data);
+    }
+  };
 
   return (
     <div
@@ -125,7 +134,7 @@ const AddAbility = (props: any) => {
 
   React.useEffect(() => {
     if (categories === null) {
-      const response = fetch("/api/categories/", {
+      fetch("/api/categories/", {
         cache: "force-cache",
         method: "POST",
         body: JSON.stringify({ id: props.params.id }),
@@ -133,10 +142,15 @@ const AddAbility = (props: any) => {
         .then((res) => res.json())
         .then((data) => setCategories(data.data));
     }
-  }, [categories]);
+  }, [categories, props?.params?.id]);
 
   return (
     <div>
+      <h1
+        className={`underline text-center mb-6 underline-offset-2 text-xl ${primaryMedium.className}`}
+      >
+        Add ability
+      </h1>
       <Legend />
 
       <br />
