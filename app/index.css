@@ -17,7 +17,6 @@
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  font-family: __Alegreya_Sans_SC_9e2ab2;
 }
 
 .header {
@@ -53,6 +52,11 @@
   border: 2px solid black;
 }
 
+.legendary {
+  color: #cc8f18;
+  border-color: #cc8f18;
+}
+
 .shadow {
   filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
 }
@@ -84,6 +88,16 @@
 }
 
 @media only screen and (min-width: 600px) {
+  .content-card {
+    width: 70%;
+  }
+  .sub-heading-card {
+    width: 70%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
   .content-card {
     width: 50%;
   }

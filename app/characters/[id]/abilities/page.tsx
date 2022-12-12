@@ -25,6 +25,7 @@ const AbilityCard = ({ ability }: AbilityCardProps) => {
     <div
       className="rounded-xl w-full border min-h-[1rem] py-4 px-6"
       onClick={() => setOpen((value) => !value)}
+      style={{ cursor: "pointer" }}
     >
       <div className="w-full flex flex-row justify-between">
         <div className={`ap ${alternateMedium.className}`}>
@@ -97,4 +98,4 @@ const Abilities = (props: any) => {
   );
 };
 
-export default Abilities;
+export default React.memo(Abilities);
