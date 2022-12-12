@@ -8,6 +8,7 @@ import {
   alternateMedium,
   primaryBold,
   primaryMedium,
+  alternateBold,
 } from "../../../../../utils/fonts";
 import "../../../../index.css";
 import { Legend } from "../Legend";
@@ -48,6 +49,7 @@ const AddAbilityCard = (props: {
 
   return (
     <div
+      style={{ cursor: "pointer" }}
       className={`rounded-xl w-full border min-h-[1rem] py-4 px-6 mt-6 ${
         !props.ability.learned ? "bg-slate-300" : ""
       }`}
@@ -56,7 +58,7 @@ const AddAbilityCard = (props: {
         className="w-full flex flex-row justify-between"
         onClick={() => setOpen((value) => !value)}
       >
-        <div className={`ap ${alternateMedium.className}`}>
+        <div className={`ap ${alternateBold.className}`}>
           {props.ability.apCost}
         </div>
         <div className={`${primaryBold.className} text-xl`}>
@@ -107,10 +109,13 @@ const CategoryCard = (props: {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="rounded-xl w-full border min-h-[1rem] py-4 px-6">
+    <div
+      className={`rounded-xl w-full ${props.category.name} border min-h-[1rem] py-4 px-6`}
+    >
       <div
         className="w-full flex flex-row justify-between center"
         onClick={() => setOpen((value) => !value)}
+        style={{ cursor: "pointer" }}
       >
         <div className={`${primaryBold.className} text-xl`}>
           {startCase(props.category.name)}
@@ -181,4 +186,4 @@ const AddAbility = (props: any) => {
   );
 };
 
-export default AddAbility;
+export default React.memo(AddAbility);

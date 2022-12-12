@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { primaryBold, primaryRegular } from "../../utils/fonts";
+import { primaryBold } from "../../utils/fonts";
 
 function MenuItem({
   children,
@@ -12,7 +12,7 @@ function MenuItem({
   return (
     <div className="card">
       <Link
-        className={`w-full center ${primaryRegular.className} text-xl`}
+        className={`w-full center ${primaryBold.className} text-xl`}
         href={href}
       >
         {children}

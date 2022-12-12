@@ -6,6 +6,15 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+ul {
+  list-style: disc;
+  padding: 1rem;
+}
+
+strong {
+  font-size: large;
+}
+
 a {
   color: inherit;
   text-decoration: none;

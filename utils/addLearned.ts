@@ -22,9 +22,15 @@ const getAbilities = (abilities: Ability[], characterId: string) =>
     description: ab.description,
   }));
 
-export const addLearned = (character: CharacterProp, characterId: string) =>
-  character.class.categories.map((cat: any) => ({
+export const addLearned = (character: CharacterProp, characterId: string) => {
+  const categories = character.class.categories.map((cat: any) => ({
     abilities: orderBy(getAbilities(cat.abilities, characterId), ["order"]),
     name: cat.name,
     id: cat.id,
   }));
+  const legendary = categories.findIndex(
+    (category) => category.name === "legendary"
+  );
+  categories.push(categories.splice(legendary, 1)[0]);
+  return categories;
+};
