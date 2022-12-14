@@ -1,3 +1,6 @@
+"use client";
+
+import { ChakraProvider } from "@chakra-ui/react";
 import { primaryBold, secondary } from "../../utils/fonts";
 import "../index.css";
 
@@ -12,7 +15,9 @@ export default function MenuLayout({ children }: { children: any }) {
         </div>
       </div>
       <div className="center w-full">
-        <div className="content-card center">{children}</div>
+        <div className="content-card center">
+          <ChakraProvider>{children}</ChakraProvider>
+        </div>
       </div>
     </>
   );

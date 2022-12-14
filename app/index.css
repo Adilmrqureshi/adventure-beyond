@@ -8,6 +8,11 @@
   padding: 0;
 }
 
+ul {
+  list-style: disc !important;
+  padding: 1rem !important;
+}
+
 .ap {
   width: 25px;
   height: 25px;
@@ -20,6 +25,7 @@
 }
 
 .header {
+  z-index: 100;
   width: 100%;
   background-color: white;
   color: black;

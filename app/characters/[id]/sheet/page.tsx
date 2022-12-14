@@ -6,26 +6,33 @@ import { CharacterSheet, Values } from "../../../../components/CharacterSheet";
 import { omit } from "lodash";
 import Button from "../../../../components/Button";
 import { useRouter } from "next/navigation";
+import Loading from "../../../../components/Loading";
 
 type Sheet = Bio & { character: { class: Class } };
 
 const Sheet = (props: any) => {
   const [bio, setBio] = React.useState<Sheet | null>(null);
+  const [loading, setLoading] = React.useState(true);
 
   const { params } = props;
 
   React.useEffect(() => {
-    if (bio === null) {
-      fetch("/api/bio/get/", {
+    const getData = async () => {
+      const response = await fetch("/api/bio/get/", {
         method: "POST",
+        cache: "force-cache",
         body: JSON.stringify({ id: params.id }),
-      })
-        .then((response) => response.json())
-        .then((data) => setBio(data.data));
-    }
-  }, [bio, params?.id]);
+      });
+      const jsonResponse = await response.json();
+      setBio(jsonResponse.data);
+      setLoading(false);
+    };
+    if (bio === null) getData();
+  }, [bio]);
 
-  return bio !== null ? <EditSheetForm bio={bio!} params={params} /> : null;
+  if (loading) return <Loading />;
+
+  return <EditSheetForm bio={bio!} params={params} />;
 };
 
 const updateBio = async (values: Values, id: string) => {
@@ -97,4 +104,4 @@ const EditSheetForm = (props: any) => {
   );
 };
 
-export default Sheet;
+export default React.memo(Sheet);

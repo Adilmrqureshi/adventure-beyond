@@ -8,30 +8,38 @@ import { BulletedTextInput } from "../../../../components/BulletedTextInput";
 import Button from "../../../../components/Button";
 import { InventoryItem } from "@prisma/client";
 import { useRouter } from "next/navigation";
-
-const getInventoryItems = async (characterId: string) => {
-  const response = await fetch("/api/inventory/all/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ characterId }),
-  });
-  const jsonResponse = await response.json();
-  return jsonResponse.data;
-};
+import { Skeleton, useToast } from "@chakra-ui/react";
+import Loading from "../../../../components/Loading";
 
 const Inventory = (props: any) => {
   const [inventory, setInventory] = useState<InventoryItem[] | null>(null);
+  const [loading, setLoading] = useState(true);
   React.useEffect(() => {
-    getInventoryItems(props.params.id).then((data) => setInventory(data));
-  }, []);
+    const getInventoryItems = async () => {
+      const response = await fetch("/api/inventory/all/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ characterId: props?.params?.id }),
+      });
+      const jsonResponse = await response.json();
+      setLoading(false);
+      setInventory(jsonResponse.data);
+    };
+    if (inventory === null) getInventoryItems();
+  }, [inventory]);
 
-  return inventory && <InventoryForm inventory={inventory} {...props} />;
+  const id = props?.params?.id;
+
+  if (loading) return <Loading />;
+
+  return <InventoryForm loading={loading} inventory={inventory} id={id} />;
 };
 
 const InventoryForm = (props: any) => {
   const router = useRouter();
+  const toast = useToast();
 
   const initialValues = {
     one: props?.inventory[0]?.name,
@@ -60,11 +68,19 @@ const InventoryForm = (props: any) => {
           const response = await fetch("/api/inventory/update/", {
             method: "POST",
             body: JSON.stringify({
-              characterId: props.params.id,
+              characterId: props.id,
               items: Object.values(values),
             }),
           });
           const data = await response.json();
+          toast({
+            title: data.message,
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+            position: "top",
+            variant: "subtle",
+          });
         }}
         initialValues={initialValues}
       >
@@ -105,4 +121,4 @@ const InventoryForm = (props: any) => {
   );
 };
 
-export default Inventory;
+export default React.memo(Inventory);
