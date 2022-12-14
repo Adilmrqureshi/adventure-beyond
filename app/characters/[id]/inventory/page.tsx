@@ -34,7 +34,7 @@ const Inventory = (props: any) => {
 
   if (loading) return <Loading />;
 
-  return <InventoryForm loading={loading} inventory={inventory} id={id} />;
+  return <InventoryForm inventory={inventory} id={id} />;
 };
 
 const InventoryForm = (props: any) => {
@@ -76,10 +76,10 @@ const InventoryForm = (props: any) => {
           toast({
             title: data.message,
             status: "success",
-            duration: 9000,
+            duration: 5000,
             isClosable: true,
             position: "top",
-            variant: "subtle",
+            variant: "left-accent",
           });
         }}
         initialValues={initialValues}
