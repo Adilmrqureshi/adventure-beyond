@@ -1,9 +1,11 @@
 "use client";
+import { useToast } from "@chakra-ui/react";
 import { Ability, Category } from "@prisma/client";
 import { startCase } from "lodash";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import Button from "../../../../../components/Button";
+import Loading from "../../../../../components/Loading";
 import {
   alternateMedium,
   primaryBold,
@@ -24,16 +26,33 @@ const AddAbilityCard = (props: {
   characterId: string;
   setCategories: React.Dispatch<React.SetStateAction<CategoryProps[] | null>>;
 }) => {
+  const toast = useToast();
   const [open, setOpen] = React.useState(false);
   const learnAbility = async (abilityId: number) => {
     const response = await fetch("/api/abilities/add/", {
       method: "POST",
       body: JSON.stringify({ characterId: props.characterId, abilityId }),
     });
+    const data = await response.json();
     if (response.ok) {
-      const data = await response.json();
       props.setCategories(data.data);
-    }
+      toast({
+        title: data.message,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+        variant: "left-accent",
+      });
+    } else
+      toast({
+        title: data.error,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+        variant: "left-accent",
+      });
   };
 
   const unlearnAbility = async (abilityId: number) => {
@@ -51,7 +70,7 @@ const AddAbilityCard = (props: {
     <div
       style={{ cursor: "pointer" }}
       className={`rounded-xl w-full border min-h-[1rem] py-4 px-6 mt-6 ${
-        !props.ability.learned ? "bg-slate-300" : ""
+        !props.ability.learned ? "bg-black/20" : ""
       }`}
     >
       <div
@@ -78,6 +97,7 @@ const AddAbilityCard = (props: {
         <div>
           <hr className="my-5" />
           <div
+            style={{ color: "black" }}
             dangerouslySetInnerHTML={{ __html: props.ability.description }}
           />
           {props.ability.learned ? (
@@ -135,46 +155,53 @@ const AddAbility = (props: any) => {
   const [categories, setCategories] = React.useState<CategoryProps[] | null>(
     null
   );
+  const [loading, setLoading] = React.useState(true);
   const router = useRouter();
 
   React.useEffect(() => {
-    if (categories === null) {
-      fetch("/api/categories/", {
+    const getData = async () => {
+      const response = await fetch("/api/categories/", {
         cache: "force-cache",
         method: "POST",
         body: JSON.stringify({ id: props.params.id }),
-      })
-        .then((res) => res.json())
-        .then((data) => setCategories(data.data));
-    }
+      });
+      const jsonResponse = await response.json();
+      setCategories(jsonResponse.data);
+      setLoading(false);
+    };
+    if (categories === null) getData();
   }, [categories, props?.params?.id]);
 
+  let categoryList: any = null;
+
+  if (loading) categoryList = <Loading />;
+  else
+    categoryList = (
+      <div className="center flex-col gap-6">
+        {categories?.map((cat) => (
+          <CategoryCard key={cat.id} category={cat}>
+            {cat.abilities.map((ab) => (
+              <AddAbilityCard
+                characterId={props.params.id}
+                ability={ab}
+                key={ab.order}
+                setCategories={setCategories}
+              />
+            ))}
+          </CategoryCard>
+        ))}
+      </div>
+    );
   return (
-    <div>
+    <>
       <h1
         className={`underline text-center mb-6 underline-offset-2 text-xl ${primaryMedium.className}`}
       >
         Add ability
       </h1>
       <Legend />
-
       <br />
-      {categories !== null ? (
-        <div className="center flex-col gap-6">
-          {categories?.map((cat) => (
-            <CategoryCard key={cat.id} category={cat}>
-              {cat.abilities.map((ab) => (
-                <AddAbilityCard
-                  characterId={props.params.id}
-                  ability={ab}
-                  key={ab.order}
-                  setCategories={setCategories}
-                />
-              ))}
-            </CategoryCard>
-          ))}
-        </div>
-      ) : null}
+      {categoryList}
       <Button
         style={{ marginTop: "2rem" }}
         onClick={() => router.back()}
@@ -182,7 +209,7 @@ const AddAbility = (props: any) => {
       >
         Back
       </Button>
-    </div>
+    </>
   );
 };
 

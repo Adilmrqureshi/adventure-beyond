@@ -54,6 +54,7 @@ export default async function inventory(
         error:
           "You need to add abilities in order. Please add the abilities before this one first.",
       });
+      return;
     } else if (isValid === "ability missing") {
       res.status(400).json({
         error:
@@ -61,6 +62,7 @@ export default async function inventory(
           ability.category.id +
           "]",
       });
+      return;
     }
 
     const character = await prisma?.character?.update({
@@ -86,7 +88,7 @@ export default async function inventory(
     const response = addLearned(character, characterId);
 
     res.json({
-      message: "Successfully retrieved inventory",
+      message: "Successfully added ability",
       data: response,
     });
   } catch (e) {

@@ -7,12 +7,8 @@ body {
 }
 
 ul {
-  list-style: disc;
+  list-style: disc !important;
   padding: 1rem;
-}
-
-strong {
-  font-size: large;
 }
 
 a {

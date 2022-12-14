@@ -13,6 +13,7 @@ import Button, { ButtonLink } from "../../../../components/Button";
 import { useRouter } from "next/navigation";
 import NumberInput from "../../../../components/NumberInput";
 import { Legend } from "./Legend";
+import Loading from "../../../../components/Loading";
 
 type AbilityCardProps = {
   ability: Ability;
@@ -56,16 +57,27 @@ const AbilityCard = ({ ability }: AbilityCardProps) => {
 
 const Abilities = (props: any) => {
   const [abilities, setAbilities] = useState<Ability[] | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   useEffect(() => {
-    if (!abilities)
-      fetch("/api/abilities/all", {
+    const getData = async () => {
+      const response = await fetch("/api/abilities/all", {
         method: "POST",
         body: JSON.stringify({ id: props.params.id }),
-      })
-        .then((response) => response.json())
-        .then((data) => setAbilities(data.data));
+      });
+      const jsonResponse = await response.json();
+      setAbilities(jsonResponse.data);
+      setLoading(false);
+    };
+    if (!abilities) getData();
   }, [abilities]);
+
+  let abilityList: any = <Loading className="w-full" />;
+
+  if (!loading)
+    abilityList = abilities?.map((ability) => (
+      <AbilityCard key={ability.id} ability={ability} />
+    ));
 
   return (
     <div className="center flex-col gap-6">
@@ -81,9 +93,7 @@ const Abilities = (props: any) => {
 
       <hr className="h-1 w-full" />
       <Legend />
-      {abilities?.map((ability) => (
-        <AbilityCard key={ability.id} ability={ability} />
-      ))}
+      {abilityList}
       <hr className="h-1 w-full" />
       <ButtonLink
         className="w-full mt-6"
