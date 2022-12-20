@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   // We need to create a response and hand it to the supabase client to be able to modify the response headers.
+  console.log(req, "REQUEST");
   const res = NextResponse.next();
   // Create authenticated Supabase Client.
   const supabase = createMiddlewareSupabaseClient({ req, res });
@@ -26,5 +27,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: "/",
+  matcher: "/app",
 };
