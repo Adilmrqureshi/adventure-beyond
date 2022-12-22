@@ -157,12 +157,14 @@ const AddAbility = (props: any) => {
   const [loading, setLoading] = React.useState(true);
   const router = useRouter();
 
+  const id = router?.query?.id as string;
+
   React.useEffect(() => {
     const getData = async () => {
       const response = await fetch("/api/categories/", {
         cache: "force-cache",
         method: "POST",
-        body: JSON.stringify({ id: router?.query?.id }),
+        body: JSON.stringify({ id }),
       });
       const jsonResponse = await response.json();
       setCategories(jsonResponse.data);
@@ -181,7 +183,7 @@ const AddAbility = (props: any) => {
           <CategoryCard key={cat.id} category={cat}>
             {cat.abilities.map((ab) => (
               <AddAbilityCard
-                characterId={router?.query?.id}
+                characterId={id}
                 ability={ab}
                 key={ab.order}
                 setCategories={setCategories}
@@ -203,7 +205,9 @@ const AddAbility = (props: any) => {
       {categoryList}
       <Button
         style={{ marginTop: "2rem" }}
-        onClick={() => router.push(`/characters/${router?.query?.id}/view`)}
+        onClick={() =>
+          router.push(`/characters/${router?.query?.id}/abilities`)
+        }
         variant="primary"
       >
         Back

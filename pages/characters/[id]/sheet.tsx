@@ -1,39 +1,36 @@
 "use client";
 
-import { Bio, Character, Class } from "@prisma/client";
+import { Bio, Class } from "@prisma/client";
 import React from "react";
 import { CharacterSheet, Values } from "../../../components/CharacterSheet";
 import { omit } from "lodash";
 import Button from "../../../components/Button";
-import { useRouter } from "next/navigation";
-import Loading from "../../../components/Loading";
+import { useRouter } from "next/router";
+import { GetServerSidePropsContext } from "next";
+import { prisma } from "../../../prisma/db";
 
 type Sheet = Bio & { character: { class: Class } };
 
-const Sheet = (props: any) => {
-  const [bio, setBio] = React.useState<Sheet | null>(null);
-  const [loading, setLoading] = React.useState(true);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // @ts-ignore
+  const { id } = context?.params;
 
-  const { params } = props;
+  console.log(id, "ID");
 
-  React.useEffect(() => {
-    const getData = async () => {
-      const response = await fetch("/api/bio/get/", {
-        method: "POST",
-        cache: "force-cache",
-        body: JSON.stringify({ id: params.id }),
-      });
-      const jsonResponse = await response.json();
-      setBio(jsonResponse.data);
-      setLoading(false);
-    };
-    if (bio === null) getData();
-  }, [bio]);
+  const bio = await prisma.bio.findUniqueOrThrow({
+    where: { characterId: id },
+    include: { character: { select: { class: true } } },
+  });
 
-  if (loading) return <Loading />;
-
-  return <EditSheetForm bio={bio!} params={params} />;
-};
+  return {
+    props: {
+      bio,
+      params: {
+        id,
+      },
+    },
+  };
+}
 
 const updateBio = async (values: Values, id: string) => {
   return await fetch("/api/bio/update/", {
@@ -58,11 +55,14 @@ const updateBio = async (values: Values, id: string) => {
   });
 };
 
-const EditSheetForm = (props: any) => {
+const Sheet = (props: any) => {
   const bio: Sheet = props.bio;
   const values = { role: props.bio?.character.class.id, ...bio };
   const [editMode, setEditMode] = React.useState(false);
   const router = useRouter();
+
+  console.log(bio, "BIO");
+
   return (
     <>
       <CharacterSheet

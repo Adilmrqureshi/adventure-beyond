@@ -1,23 +1,38 @@
+import { GetServerSidePropsContext } from "next";
 import * as React from "react";
 import Button, { ButtonLink } from "../../../components/Button";
 import NumberInput from "../../../components/NumberInput";
 import { getCharacter } from "../../../prisma/query/getCharacter";
 import { primaryMedium } from "../../../utils/fonts";
 
-const View = async (props: any) => {
-  const myCharacter = await getCharacter(props.params.id);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // @ts-ignore
+  const { id } = context?.params;
+
+  const myCharacter = await getCharacter(id);
+  return {
+    props: {
+      character: myCharacter,
+      params: {
+        id,
+      },
+    }, // will be passed to the page component as props
+  };
+}
+
+const View = (props: any) => {
   return (
     <div className="text-center">
       <h3
         className={`underline underline-offset-2 text-xl mb-6 ${primaryMedium.className}`}
       >
-        {myCharacter?.bio?.name}
+        {props.character?.bio?.name}
       </h3>
       <NumberInput>HP</NumberInput>
       <NumberInput>AP</NumberInput>
       <ButtonLink
         style={{ marginTop: "2rem" }}
-        href={`/characters/${props.params.id}/inventory/`}
+        href={`/characters/${props?.params?.id}/inventory/`}
       >
         Inventory
       </ButtonLink>

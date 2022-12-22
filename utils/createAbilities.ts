@@ -2,10 +2,10 @@ const fs = require("fs");
 const { parse } = require("csv-parse");
 const { prisma } = require("../prisma/db");
 
-fs.createReadStream(process.cwd() + "/utils/Abilities.csv")
+fs.createReadStream(process.cwd() + "/utils/AbilitiesV2.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
   .on("data", async function (row: string[]) {
-    const abilityName = row[0];
+    const abilityName = row[0].trim();
     const apCost = +row[1];
     const description = row[2];
     const categoryName = row[3];
@@ -40,7 +40,6 @@ fs.createReadStream(process.cwd() + "/utils/Abilities.csv")
       });
     } else {
       console.log("Failed to get category for:");
-
       console.log(abilityName, "A NAME");
       console.log(c, "class");
       console.log(categoryName, "name");

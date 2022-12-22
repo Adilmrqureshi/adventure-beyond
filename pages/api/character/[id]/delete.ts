@@ -19,7 +19,7 @@ export default async function deleteCharacter(
     ]);
 
     res.json({
-      message: `Successfully deleted character: ${id}`,
+      message: `Successfully deleted character.`,
     });
   } catch (e) {
     console.log(`Error: ${e}, of type ${typeof e}`);

@@ -4,34 +4,36 @@ import { Form, Formik } from "formik";
 import { BulletedTextInput } from "../../../components/BulletedTextInput";
 import Button from "../../../components/Button";
 import { InventoryItem } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { Skeleton, useToast } from "@chakra-ui/react";
 import Loading from "../../../components/Loading";
+import { prisma } from "../../../prisma/db";
+import { GetServerSidePropsContext } from "next";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // @ts-ignore
+  const { id } = context?.params;
+
+  const inventory = await prisma.inventoryItem.findMany({
+    where: { characterId: id },
+  });
+
+  return {
+    props: {
+      inventory,
+      params: {
+        id,
+      },
+    }, // will be passed to the page component as props
+  };
+}
 
 const Inventory = (props: any) => {
-  const [inventory, setInventory] = useState<InventoryItem[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  React.useEffect(() => {
-    const getInventoryItems = async () => {
-      const response = await fetch("/api/inventory/all/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ characterId: props?.params?.id }),
-      });
-      const jsonResponse = await response.json();
-      setLoading(false);
-      setInventory(jsonResponse.data);
-    };
-    if (inventory === null) getInventoryItems();
-  }, [inventory]);
-
-  const id = props?.params?.id;
-
-  if (loading) return <Loading />;
-
-  return <InventoryForm loading={loading} inventory={inventory} id={id} />;
+  return props.inventory ? (
+    <InventoryForm inventory={props.inventory} id={props?.params?.id} />
+  ) : (
+    <Loading />
+  );
 };
 
 const InventoryForm = (props: any) => {
@@ -70,14 +72,25 @@ const InventoryForm = (props: any) => {
             }),
           });
           const data = await response.json();
-          toast({
-            title: data.message,
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-            position: "top",
-            variant: "subtle",
-          });
+          if (response.ok) {
+            toast({
+              title: data.message,
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+              position: "top",
+              variant: "subtle",
+            });
+          } else {
+            toast({
+              title: data.error,
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "top",
+              variant: "subtle",
+            });
+          }
         }}
         initialValues={initialValues}
       >

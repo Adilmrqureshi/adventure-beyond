@@ -76,7 +76,7 @@ const InventoryForm = (props: any) => {
           toast({
             title: data.message,
             status: "success",
-            duration: 9000,
+            duration: 5000,
             isClosable: true,
             position: "top",
             variant: "subtle",
