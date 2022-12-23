@@ -75,7 +75,7 @@ const AuthWrapper = (props: { children: any }) => {
   if (!user)
     return (
       <Auth
-        redirectTo={process.env.NEXTAUTH_URL}
+        redirectTo={process.env.VERCEL_URL}
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
         socialLayout="horizontal"
