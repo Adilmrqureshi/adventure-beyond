@@ -1,14 +1,25 @@
 "use client";
-
+import * as React from "react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SessionProvider, signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Button from "../components/Button";
 import { primaryExtraBold } from "../utils/fonts";
 import "./index.css";
+import { supabase } from "../utils/supabase";
+import { useRouter } from "next/navigation";
 
-export default function RootLayout({ children }: { children: any }) {
+export default function RootLayout(props: { children: any }) {
+  const router = useRouter();
+
+  const signOut = async () => {
+    console.log("hello");
+
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      router.push("/");
+    }
+  };
+
   return (
     <html>
       <head>
@@ -23,7 +34,7 @@ export default function RootLayout({ children }: { children: any }) {
             <div
               className="border rounded-full w-10 h-10 center"
               style={{ position: "absolute", right: 10, cursor: "pointer" }}
-              onClick={() => signOut()}
+              onClick={signOut}
             >
               <FontAwesomeIcon
                 className="w-5 h-5"
@@ -34,28 +45,10 @@ export default function RootLayout({ children }: { children: any }) {
             </div>
           </div>
         </header>
-        <SessionProvider>
-          <Auth>
-            <div className="inner-layout">{children}</div>
-          </Auth>
-        </SessionProvider>
+        <div className="inner-layout">
+          <ChakraProvider>{props.children}</ChakraProvider>
+        </div>
       </body>
     </html>
   );
 }
-
-const Auth = (props: { children: React.ReactNode }) => {
-  const router = useRouter();
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/api/auth/signin/");
-    },
-  });
-
-  if (status === "loading") {
-    return <div>Loading or not authenticated...</div>;
-  }
-
-  return <div>{props.children}</div>;
-};

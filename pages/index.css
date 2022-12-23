@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: disc !important;
+  padding: 1rem !important;
+}
+
+.ap {
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.header {
+  z-index: 100;
+  width: 100%;
+  background-color: white;
+  color: black;
+  display: fixed;
+  position: sticky;
+  border-bottom: 2px solid black;
+  top: 0;
+  left: 0;
+  height: 6rem;
+  text-align: center;
+}
+
+.body {
+  background-color: black;
+  width: 100%;
+}
+
+.inner-layout {
+  padding: 2rem;
+}
+
+.content-card {
+  background-color: white;
+  width: 100%;
+  min-height: 1rem;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.border {
+  border: 2px solid black;
+}
+
+.legendary {
+  color: #cc8f18;
+  border-color: #cc8f18;
+}
+
+.shadow {
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+}
+
+.content-card > div {
+  width: 100%;
+}
+
+.sub-heading-card {
+  height: 6rem;
+  width: 100%;
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  border: 2px solid black;
+  border-radius: 4px;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 600px) {
+  .content-card {
+    width: 70%;
+  }
+  .sub-heading-card {
+    width: 70%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .content-card {
+    width: 50%;
+  }
+  .sub-heading-card {
+    width: 50%;
+  }
+}

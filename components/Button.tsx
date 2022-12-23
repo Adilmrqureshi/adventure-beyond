@@ -1,7 +1,5 @@
 import React from "react";
 import { primary, primaryBold } from "../utils/fonts";
-
-import "../styles/form.css";
 import Link from "next/link";
 
 function Button({

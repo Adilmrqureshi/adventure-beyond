@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import * as yup from "yup";
-import { useRouter } from "next/navigation";
-import { Bio, Class, Role } from "@prisma/client";
+import { useRouter } from "next/router";
+import { Role } from "@prisma/client";
 import { TextInput } from "./TextInput";
 import { BulletedTextInput } from "./BulletedTextInput";
 import Button from "./Button";

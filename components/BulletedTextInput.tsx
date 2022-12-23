@@ -1,7 +1,6 @@
 import React from "react";
 import { useField } from "formik";
 import { formFont, secondary } from "../utils/fonts";
-import "styles/form.css";
 
 interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;

@@ -47,8 +47,8 @@ export default async function inventory(
       });
     } catch (e) {
       console.error(`Error: ${e} - of type: ${typeof e}`);
-      res.json({
-        message: "An error has occurred while updating your inventory",
+      res.status(400).json({
+        error: "An error has occurred while updating your inventory",
       });
     }
   } else {

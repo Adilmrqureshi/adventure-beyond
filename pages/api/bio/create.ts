@@ -2,6 +2,7 @@ import { Bio, Role } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "next-auth";
 import { prisma } from "../../../prisma/db";
+import quickstart from "../../../utils/quickstart";
 
 type CreateCharacterInput = {
   bio: Bio;
@@ -48,10 +49,13 @@ export default async function newCharacter(
         class: {
           connectOrCreate: { where: { id: role }, create: { id: role } },
         },
+        abilities: {
+          connect: quickstart[role],
+        },
       },
     });
 
-    res.json({ message: `Character create [id: ${character.id}]`, character });
+    res.json({ message: `Successfully created character`, character });
   } else {
     res.status(405);
   }
