@@ -9,6 +9,10 @@
   padding: 0;
 }
 
+strong {
+  font-family: "Alegreya Sans SC", sans-serif;
+}
+
 ul {
   list-style: disc !important;
   padding: 1rem !important;
@@ -39,7 +43,7 @@ ul {
   text-align: center;
 }
 
-.body {
+.background {
   background-color: black;
   width: 100%;
 }

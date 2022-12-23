@@ -1,13 +1,13 @@
 import { Bio, Role } from "@prisma/client";
+import { User } from "@supabase/supabase-js";
 import { NextApiRequest, NextApiResponse } from "next";
-import { User } from "next-auth";
 import { prisma } from "../../../prisma/db";
 import quickstart from "../../../utils/quickstart";
 
 type CreateCharacterInput = {
   bio: Bio;
   role: Role;
-  user: Omit<User, "id">;
+  user: User;
 };
 
 export default async function newCharacter(
@@ -44,7 +44,7 @@ export default async function newCharacter(
 
     const character = await prisma.character.create({
       data: {
-        user: { connect: { email: user.email } },
+        userId: user.id,
         bio: { create: body },
         class: {
           connectOrCreate: { where: { id: role }, create: { id: role } },
