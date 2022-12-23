@@ -17,8 +17,6 @@ const CharactersContainer = () => {
   const [loading, setLoading] = useState(true);
   const user = useUser();
 
-  console.log(user);
-
   const [characters, setCharacters] = React.useState<
     CharacterOverview[] | null
   >(null);

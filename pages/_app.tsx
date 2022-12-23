@@ -71,10 +71,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 const AuthWrapper = (props: { children: any }) => {
   const supabaseClient = useSupabaseClient();
   const user = useUser();
+
   if (!user)
     return (
       <Auth
-        redirectTo="http://localhost:3000/"
+        redirectTo={process.env.NEXTAUTH_URL}
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
         socialLayout="horizontal"

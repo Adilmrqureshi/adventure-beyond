@@ -5,7 +5,6 @@ import { startCase } from "lodash";
 import { useRouter } from "next/router";
 import * as React from "react";
 import Button from "../../../../components/Button";
-import Loading from "../../../../components/Loading";
 import {
   alternateMedium,
   primaryBold,
@@ -13,6 +12,9 @@ import {
   alternateBold,
 } from "../../../../utils/fonts";
 import { Legend } from "../../../../components/Legend";
+import { prisma } from "../../../../prisma/db";
+import { addLearned } from "../../../../utils/addLearned";
+import { GetServerSidePropsContext } from "next";
 
 type CategoryProps = Category & {
   abilities: (Ability & { learned: boolean })[];
@@ -150,49 +152,67 @@ const CategoryCard = (props: {
   );
 };
 
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // @ts-ignore
+  const { id } = context?.params;
+
+  const character = await prisma.character.findUniqueOrThrow({
+    where: { id },
+    include: {
+      class: {
+        include: {
+          categories: {
+            include: {
+              abilities: {
+                include: {
+                  characters: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const categories = addLearned(character, id);
+
+  return {
+    props: {
+      categories,
+      params: {
+        id,
+      },
+    }, // will be passed to the page component as props
+  };
+}
+
 const AddAbility = (props: any) => {
   const [categories, setCategories] = React.useState<CategoryProps[] | null>(
-    null
+    () => props.categories
   );
-  const [loading, setLoading] = React.useState(true);
   const router = useRouter();
 
   const id = router?.query?.id as string;
 
-  React.useEffect(() => {
-    const getData = async () => {
-      const response = await fetch("/api/categories/", {
-        cache: "force-cache",
-        method: "POST",
-        body: JSON.stringify({ id }),
-      });
-      const jsonResponse = await response.json();
-      setCategories(jsonResponse.data);
-      setLoading(false);
-    };
-    if (categories === null) getData();
-  }, [categories]);
-
   let categoryList: any = null;
 
-  if (loading) categoryList = <Loading />;
-  else
-    categoryList = (
-      <div className="center flex-col gap-6">
-        {categories?.map((cat) => (
-          <CategoryCard key={cat.id} category={cat}>
-            {cat.abilities.map((ab) => (
-              <AddAbilityCard
-                characterId={id}
-                ability={ab}
-                key={ab.order}
-                setCategories={setCategories}
-              />
-            ))}
-          </CategoryCard>
-        ))}
-      </div>
-    );
+  categoryList = (
+    <div className="center flex-col gap-6">
+      {categories?.map((cat: CategoryProps) => (
+        <CategoryCard key={cat.id} category={cat}>
+          {cat.abilities.map((ab) => (
+            <AddAbilityCard
+              characterId={id}
+              ability={ab}
+              key={ab.order}
+              setCategories={setCategories}
+            />
+          ))}
+        </CategoryCard>
+      ))}
+    </div>
+  );
   return (
     <>
       <h1

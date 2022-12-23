@@ -1,10 +1,12 @@
 import React from "react";
 import { useField } from "formik";
 import { formFont, secondary } from "../utils/fonts";
-import { Icon, Tooltip } from "@chakra-ui/react";
+import { Icon, Select, Tooltip } from "@chakra-ui/react";
 import { InfoIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { Role } from "@prisma/client";
+import { capitalize } from "lodash";
 
-interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface FieldProps extends React.InputHTMLAttributes<HTMLSelectElement> {
   label?: string;
   name: string;
   marginTop?: number | string;
@@ -12,15 +14,15 @@ interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   help?: React.ReactNode;
 }
 
-export const BulletedTextInput = (props: FieldProps) => {
+export const BulletedSelectInput = (props: FieldProps) => {
   return !props.label ? (
-    <BulletTextInputNoLabel {...props} />
+    <BulletSelectInputNoLabel {...props} />
   ) : (
-    <BulletTextInputWithLabel {...props} />
+    <BulletSelectInputWithLabel {...props} />
   );
 };
 
-const BulletTextInputNoLabel = ({
+const BulletSelectInputNoLabel = ({
   name,
   marginTop,
   number,
@@ -32,13 +34,21 @@ const BulletTextInputNoLabel = ({
     <div style={{ marginTop: `${marginTop}rem` }}>
       <div className="flex mb-3 items-center flex-row">
         <div className="bullet">{number}</div>
-        <input
-          className={`w-full text-input border p-1 px-3 text-lg ${
-            formFont.className
-          } ${props.disabled ? "disabled" : ""}`}
+        <Select
+          style={{ border: "2px solid black", borderRadius: "0px" }}
+          className={`w-full text-input border p-1 px-3 text-lg   ${
+            props.disabled ? "disabled" : ""
+          }`}
           {...field}
-          {...props}
-        />
+          name={name}
+          placeholder="Select role:"
+        >
+          {Object.keys(Role).map((role) => (
+            <option key={role} value={role}>
+              {capitalize(role)}
+            </option>
+          ))}
+        </Select>
       </div>
 
       {meta.touched && meta.error ? (
@@ -48,7 +58,7 @@ const BulletTextInputNoLabel = ({
   );
 };
 
-const BulletTextInputWithLabel = ({
+const BulletSelectInputWithLabel = ({
   label,
   name,
   marginTop,
@@ -69,13 +79,22 @@ const BulletTextInputWithLabel = ({
         </label>
         {props.help}
       </div>
-      <input
+      <Select
+        style={{ border: "2px solid black", borderRadius: "0px" }}
         className={`w-full text-input border p-1 px-3 text-lg ${
           formFont.className
-        }  ${props.disabled ? "disabled" : ""}`}
+        } ${props.disabled ? "disabled" : ""}`}
         {...field}
-        {...props}
-      />
+        placeholder=" "
+        name={name}
+      >
+        {Object.keys(Role).map((role) => (
+          <option key={role} value={role}>
+            {capitalize(role)}
+          </option>
+        ))}
+      </Select>
+
       {meta.touched && meta.error ? (
         <div className="error">{meta.error}</div>
       ) : null}
