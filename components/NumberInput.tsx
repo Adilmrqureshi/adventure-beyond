@@ -1,10 +1,23 @@
-"use client";
-
+import { parseInt } from "lodash";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { primaryBold, primaryRegular, secondary } from "../utils/fonts";
 
-const NumberInput = ({ children }: { children: React.ReactNode }) => {
-  const [value, setValue] = React.useState(10);
+const NumberInput = ({ children }: { children: string }) => {
+  const router = useRouter();
+  const [value, setValue] = React.useState(() => {
+    if (router)
+      return parseInt(
+        localStorage.getItem(`${children}-${router?.query?.id}`) || "10"
+      );
+    else return 10;
+  });
+
+  const changeHandler = (value: number) => {
+    setValue(value);
+    localStorage.setItem(`${children}-${router?.query?.id}`, value.toString());
+  };
+
   return (
     <div className="flex flex-row items-center w-full">
       <div
@@ -15,7 +28,7 @@ const NumberInput = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="flex flex-row gap-4 w-full items-center mt-4">
         <button
-          onClick={() => setValue((v) => v - 1)}
+          onClick={() => changeHandler(value - 1)}
           style={{ borderRadius: "4px" }}
           className="primary text-base"
         >
@@ -33,7 +46,7 @@ const NumberInput = ({ children }: { children: React.ReactNode }) => {
           {value}
         </div>
         <button
-          onClick={() => setValue((v) => v + 1)}
+          onClick={() => changeHandler(value + 1)}
           style={{ borderRadius: "4px" }}
           className="primary text-base"
         >

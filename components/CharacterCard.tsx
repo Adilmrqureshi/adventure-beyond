@@ -20,8 +20,8 @@ const CharacterCard = ({
     <div className="w-full drop-shadow-2xl flex flex-col gap-y-4 p-4 my-4 shadow">
       <InfoBox>{character?.bio?.name}</InfoBox>
       <InfoBox>{character?.class?.id}</InfoBox>
-      <InfoBox>HP: {10}</InfoBox>
-      <InfoBox>AP: {10}</InfoBox>
+      <InfoBox>HP: {localStorage.getItem(`HP-${character?.id}`) || 10}</InfoBox>
+      <InfoBox>AP: {localStorage.getItem(`AP-${character?.id}`) || 10}</InfoBox>
       <ButtonLink href={`/characters/${character.id}/view/`}>View</ButtonLink>
     </div>
   );
