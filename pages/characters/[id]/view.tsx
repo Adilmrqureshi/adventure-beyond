@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import * as React from "react";
-import Button, { ButtonLink } from "../../../components/Button";
+import { ButtonLink } from "../../../components/Button";
+import Loading from "../../../components/Loading";
 import NumberInput from "../../../components/NumberInput";
 import { getCharacter } from "../../../prisma/query/getCharacter";
 import { primaryMedium } from "../../../utils/fonts";
@@ -8,6 +9,16 @@ import { primaryMedium } from "../../../utils/fonts";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // @ts-ignore
   const { id } = context?.params;
+
+  if (!prisma)
+    return {
+      props: {
+        character: null,
+        params: {
+          id,
+        },
+      },
+    };
 
   const myCharacter = await getCharacter(id);
   return {
@@ -21,6 +32,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const View = (props: any) => {
+  if (!props.character) return <Loading />;
   return (
     <div className="text-center">
       <h3
