@@ -27,7 +27,7 @@ export default async function inventory(
       });
     } else {
       characters = await prisma.character.findMany({
-        where: { user },
+        where: { userId: user.id },
         include: {
           class: true,
           bio: {

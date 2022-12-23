@@ -25,7 +25,7 @@ export default function RootLayout(props: { children: any }) {
       <head>
         <>Adventure beyond</>
       </head>
-      <body className="body">
+      <body className="background">
         <header className="header">
           <div
             className={`w-full h-full center text-4xl ${primaryExtraBold.className}`}

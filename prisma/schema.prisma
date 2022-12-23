@@ -46,7 +46,6 @@ model User {
   isAdmin       Boolean     @default(false)
   accounts      Account[]
   sessions      Session[]
-  characters    Character[]
 }
 
 model VerificationToken {
@@ -71,7 +70,6 @@ model Character {
   role      Role
   class     Class           @relation(fields: [role], references: [id])
   abilities Ability[]
-  user      User            @relation(fields: [userId], references: [id])
 }
 
 model Class {
