@@ -28,6 +28,8 @@ export default function RootLayout(props: { children: any }) {
       <body className="background">
         <header className="header">
           <div
+            style={{ cursor: "pointer" }}
+            onClick={() => router.push("/")}
             className={`w-full h-full center text-4xl ${primaryExtraBold.className}`}
           >
             Adventure beyond
