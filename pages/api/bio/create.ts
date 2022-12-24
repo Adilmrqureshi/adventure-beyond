@@ -44,7 +44,7 @@ export default async function newCharacter(
 
     const character = await prisma.character.create({
       data: {
-        userId: user.id,
+        userId: user?.id,
         bio: { create: body },
         class: {
           connectOrCreate: { where: { id: role }, create: { id: role } },
