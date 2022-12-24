@@ -37,8 +37,8 @@ export default async function newCharacter(
       return;
     }
 
-    if (!user?.email) {
-      res.json({ error: "No email provided" });
+    if (user?.id === undefined) {
+      res.status(401).json({ error: "Unauthorised" });
       return;
     }
 
