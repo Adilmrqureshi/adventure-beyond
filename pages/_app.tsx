@@ -19,22 +19,24 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [supabaseClient] = React.useState(() => createBrowserSupabaseClient());
 
-  const signOut = async () => {
-    console.log("hello");
+  // const signOut = async () => {
+  //   console.log("hello");
 
-    const { error } = await supabaseClient.auth.signOut();
-    if (!error) {
-      router.push("/");
-    }
-  };
+  //   const { error } = await supabaseClient.auth.signOut();
+  //   if (!error) {
+  //     router.push("/");
+  //   }
+  // };
   return (
     <>
       <header className="header">
         <div
+          style={{ cursor: "pointer" }}
+          onClick={() => router.push("/")}
           className={`w-full h-full center text-4xl ${primaryExtraBold.className}`}
         >
           Adventure beyond
-          <div
+          {/* <div
             className="border rounded-full w-10 h-10 center"
             style={{ position: "absolute", right: 10, cursor: "pointer" }}
             onClick={signOut}
@@ -45,7 +47,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
               size="xs"
               icon={faArrowRightFromBracket}
             />
-          </div>
+          </div> */}
         </div>
       </header>
       <div className="inner-layout">

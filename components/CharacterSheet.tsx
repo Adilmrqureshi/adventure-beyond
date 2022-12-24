@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import * as yup from "yup";
 import { useRouter } from "next/router";
 import { Role } from "@prisma/client";
-import { TextInput } from "./TextInput";
+import { TextColInput, TextInput } from "./TextInput";
 import { BulletedTextInput } from "./BulletedTextInput";
 import Button from "./Button";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
@@ -56,7 +56,7 @@ let schema = yup.object().shape({
 
 const RoleAccordion = () => {
   return (
-    <Accordion allowMultiple>
+    <Accordion>
       <AccordionItem>
         <h2>
           <AccordionButton>
@@ -202,7 +202,7 @@ export const CharacterSheet = (props: {
       >
         {(formik) => (
           <Form>
-            <TextInput
+            <TextColInput
               disabled={props.disabled}
               name="name"
               label="My name is:"
