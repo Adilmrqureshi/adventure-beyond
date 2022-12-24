@@ -37,14 +37,14 @@ export default async function newCharacter(
       return;
     }
 
-    if (!user?.email) {
-      res.json({ error: "No email provided" });
+    if (user?.id === undefined) {
+      res.status(401).json({ error: "Unauthorised" });
       return;
     }
 
     const character = await prisma.character.create({
       data: {
-        userId: user.id,
+        userId: user?.id,
         bio: { create: body },
         class: {
           connectOrCreate: { where: { id: role }, create: { id: role } },
