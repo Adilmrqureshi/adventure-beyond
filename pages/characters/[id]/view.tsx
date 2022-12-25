@@ -30,10 +30,10 @@ const View = (props: any) => {
       >
         {props.character?.bio?.name}
       </h3>
-      <NumberInput>HP</NumberInput>
-      <NumberInput>AP</NumberInput>
+      {/* <NumberInput>HP</NumberInput>
+      <NumberInput>AP</NumberInput> */}
       <ButtonLink
-        style={{ marginTop: "2rem" }}
+        style={{ marginTop: "1rem" }}
         href={`/characters/${props?.params?.id}/inventory/`}
       >
         Inventory
