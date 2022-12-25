@@ -51,7 +51,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         </div>
       </header>
       <div className="inner-layout">
-        <div className="content center w-full mt-4">
+        <div className="content center w-full">
           <div className="content-card center">
             <SessionContextProvider
               supabaseClient={supabaseClient}

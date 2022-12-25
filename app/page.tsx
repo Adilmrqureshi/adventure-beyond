@@ -51,7 +51,7 @@ export default function Page() {
     }
   }
   return (
-    <div className="content center w-full mt-4">
+    <div className="content center w-full">
       <div className="content-card center flex-col">
         <h1 className={`mb-2 text-2xl ${primaryExtraBold.className}`}>
           Welcome
