@@ -10,16 +10,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // @ts-ignore
   const { id } = context?.params;
 
-  if (!prisma)
-    return {
-      props: {
-        character: null,
-        params: {
-          id,
-        },
-      },
-    };
-
   const myCharacter = await getCharacter(id);
   return {
     props: {
