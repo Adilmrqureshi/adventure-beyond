@@ -41,7 +41,7 @@ const ConfirmDelete = (props: any) => {
   // }, [character, props?.params?.id]);
 
   const deleteCharacter = async (id: string) => {
-    const response = await fetch(`/api/character/${id}/delete/`, {
+    const response = await fetch(`/api/character/${id}/delete`, {
       method: "POST",
     });
     return response;

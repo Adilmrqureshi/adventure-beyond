@@ -11,7 +11,7 @@ const createCharacter = async (
   role: Role,
   user: Omit<User, "id">
 ) => {
-  return await fetch("/api/bio/create/", {
+  return await fetch("/api/bio/create", {
     method: "POST",
     body: JSON.stringify({ bio, role, user }),
   });
