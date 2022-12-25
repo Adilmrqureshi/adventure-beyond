@@ -33,7 +33,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const updateBio = async (values: Values, id: string) => {
-  return await fetch("/api/bio/update/", {
+  return await fetch("/api/bio/update", {
     method: "POST",
     body: JSON.stringify({
       bio: {

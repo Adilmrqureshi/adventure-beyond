@@ -23,7 +23,7 @@ const CharactersContainer = () => {
 
   React.useEffect(() => {
     const getData = async () => {
-      const response = await fetch("/api/bio/getAll/", {
+      const response = await fetch("/api/bio/getAll", {
         method: "POST",
         body: JSON.stringify({ user: user }),
       });

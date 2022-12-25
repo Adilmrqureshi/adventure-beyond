@@ -30,7 +30,7 @@ const AddAbilityCard = (props: {
   const toast = useToast();
   const [open, setOpen] = React.useState(false);
   const learnAbility = async (abilityId: number) => {
-    const response = await fetch("/api/abilities/add/", {
+    const response = await fetch("/api/abilities/add", {
       method: "POST",
       body: JSON.stringify({ characterId: props.characterId, abilityId }),
     });
@@ -57,7 +57,7 @@ const AddAbilityCard = (props: {
   };
 
   const unlearnAbility = async (abilityId: number) => {
-    const response = await fetch("/api/abilities/remove/", {
+    const response = await fetch("/api/abilities/remove", {
       method: "POST",
       body: JSON.stringify({ characterId: props.characterId, abilityId }),
     });

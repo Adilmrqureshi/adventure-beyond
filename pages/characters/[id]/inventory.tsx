@@ -64,7 +64,7 @@ const InventoryForm = (props: any) => {
       </h3>
       <Formik
         onSubmit={async (values) => {
-          const response = await fetch("/api/inventory/update/", {
+          const response = await fetch("/api/inventory/update", {
             method: "POST",
             body: JSON.stringify({
               characterId: props.id,
