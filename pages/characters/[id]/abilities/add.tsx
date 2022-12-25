@@ -78,25 +78,23 @@ const AddAbilityCard = (props: {
         className="w-full flex flex-row justify-between"
         onClick={() => setOpen((value) => !value)}
       >
-        <div className={`ap ${alternateBold.className}`}>
-          {props.ability.apCost}
-        </div>
-        <div className={`${primaryBold.className} text-xl`}>
+        <div className={`ap`}>{props.ability.apCost}</div>
+        <div
+          className={`${primaryBold.className} flex-1 text-center text-md sm:text-xl`}
+        >
           {startCase(props.ability.name)}
         </div>
-        {!!props.ability.extra ? (
-          <div
-            className={`py-1 px-2 min-w-[25px] h-[25px] bg-black text-white center font-bold text-sm ${alternateMedium.className}`}
-          >
-            {props.ability.extra}
-          </div>
-        ) : (
-          <div></div>
-        )}
       </div>
       {open && (
         <div>
           <hr className="my-5" />
+          {!!props?.ability.extra && (
+            <div
+              className={`py-1 px-2 mb-3 min-w-[25px] h-[25px] bg-black text-white center font-bold text-xs sm:text-sm ${alternateMedium.className}`}
+            >
+              <strong>{props?.ability.extra}</strong>
+            </div>
+          )}
           <div
             style={{ color: "black" }}
             dangerouslySetInnerHTML={{ __html: props.ability.description }}

@@ -23,30 +23,28 @@ const AbilityCard = ({ ability }: AbilityCardProps) => {
 
   return (
     <div
-      className="rounded-xl w-full border min-h-[1rem] py-4 px-6"
+      className="rounded-xl w-full border min-h-[1rem] py-4 px-4"
       onClick={() => setOpen((value) => !value)}
       style={{ cursor: "pointer" }}
     >
       <div className="w-full flex flex-row justify-between">
-        <div className={`ap ${alternateMedium.className}`}>
-          {ability.apCost}
-        </div>
-        <div className={`${primaryBold.className} text-xl`}>
+        <div className={`ap mr-2`}>{ability.apCost}</div>
+        <div
+          className={`${primaryBold.className} flex-1 text-center text-md sm:text-xl`}
+        >
           {startCase(ability.name)}
         </div>
-        {!!ability.extra ? (
-          <div
-            className={`py-1 px-2 min-w-[25px] h-[25px] bg-black text-white center font-bold text-sm ${alternateMedium.className}`}
-          >
-            {ability.extra}
-          </div>
-        ) : (
-          <div></div>
-        )}
       </div>
       {open && (
         <div>
           <hr className="my-5" />
+          {!!ability.extra && (
+            <div
+              className={`py-1 px-2 mb-3 min-w-[25px] h-[25px] bg-black text-white center font-bold text-xs sm:text-sm ${alternateMedium.className}`}
+            >
+              <strong>{ability.extra}</strong>
+            </div>
+          )}
           <div dangerouslySetInnerHTML={{ __html: ability.description }} />
         </div>
       )}
